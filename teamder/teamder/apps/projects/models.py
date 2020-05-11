@@ -20,8 +20,8 @@ class Ad(models.Model):
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
     ad_pub_date = models.DateTimeField('дата публикации')
 
-    #РАЗОБАРТЬСЯ ПОЧЕМУ НЕ РАБОТАИИИТ:
-    #def was_published_recently(self):
+    # РАЗОБАРТЬСЯ ПОЧЕМУ НЕ РАБОТАИИИТ:
+    # def was_published_recently(self):
     #  return self.ad_pub_date >= (timezone.now() - datetime.timedelta(days=14))
 
     class Meta:
@@ -40,3 +40,12 @@ class Member(models.Model):
     class Meta:
         verbose_name = 'Участник'
         verbose_name_plural = 'Участники'
+
+
+class Technology(models.Model):
+    project = models.ForeignKey(Project, on_delete=models.CASCADE)
+    technology_name = models.CharField("название технологии", max_length=20)
+
+    class Meta:
+        verbose_name = 'Технология'
+        verbose_name_plural = 'Технологии'

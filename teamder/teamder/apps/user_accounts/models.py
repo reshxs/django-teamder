@@ -2,10 +2,19 @@ from django.db import models
 
 
 class UserAccount(models.Model):
-    user_first_name = models.CharField("Имя пользователя", max_length=25)
-    user_last_name = models.CharField("Фамилия пользователя", max_length=25)
+    # Тут будет привязка аккаунта к пользователю
+
+    # Создаем необходимые поля
     user_description = models.TextField("Описание профиля")
 
     class Meta:
         verbose_name = 'Аккаунт'
         verbose_name_plural = 'Аккаунты'
+
+
+class Skill(models.Model):
+    # Привяжем скиллы к пользователю
+    user = models.ForeignKey(UserAccount, on_delete=models.CASCADE)
+
+    # название скила
+    skill_name = models.CharField("Навык", max_length=20)
