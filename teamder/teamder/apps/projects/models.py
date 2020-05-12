@@ -1,7 +1,5 @@
-import datetime
 from django.db import models
 from django.contrib.auth import get_user_model
-from django.utils import timezone
 
 
 class Project(models.Model):
@@ -19,10 +17,6 @@ class Project(models.Model):
 class Ad(models.Model):
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
     ad_pub_date = models.DateTimeField('дата публикации')
-
-    # РАЗОБАРТЬСЯ ПОЧЕМУ НЕ РАБОТАИИИТ:
-    # def was_published_recently(self):
-    #  return self.ad_pub_date >= (timezone.now() - datetime.timedelta(days=14))
 
     class Meta:
         verbose_name = 'Объявление'
