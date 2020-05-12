@@ -1,5 +1,6 @@
 import datetime
 from django.db import models
+from django.contrib.auth import get_user_model
 from django.utils import timezone
 
 
@@ -29,6 +30,7 @@ class Ad(models.Model):
 
 
 class Member(models.Model):
+    user = models.OneToOneField(get_user_model(), on_delete=models.CASCADE, default=0, primary_key=True)
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
     member_name = models.CharField('имя участника', max_length=50)
     member_role = models.CharField('роль участника', max_length=50)
