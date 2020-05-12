@@ -3,7 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="d356b270-898e-4f82-8e39-fefe7287fdcc" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/teamder/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/teamder/db.sqlite3" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/teamder/teamder/apps/projects/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/teamder/teamder/apps/projects/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/teamder/teamder/apps/user_accounts/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/teamder/teamder/apps/user_accounts/models.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,6 +46,10 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="275" y="22" key="#Notifications/0.0.1366.728@0.0.1366.728" timestamp="1587996649621" />
+    <state x="337" y="0" key="CommitChangelistDialog2" timestamp="1589279544716">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="337" y="0" key="CommitChangelistDialog2/0.0.1366.728@0.0.1366.728" timestamp="1589279544716" />
     <state x="505" y="280" key="Github.CreateGistDialog" timestamp="1587996480691">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
