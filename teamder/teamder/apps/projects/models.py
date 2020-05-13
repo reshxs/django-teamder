@@ -1,10 +1,24 @@
+from datetime import datetime
 from django.db import models
 from django.contrib.auth import get_user_model
+
+
+class Technology(models.Model):
+    technology_name = models.CharField("название технологии", max_length=20)
+
+    def __str__(self):
+        return self.technology_name
+
+    class Meta:
+        verbose_name = 'Технология'
+        verbose_name_plural = 'Технологии'
 
 
 class Project(models.Model):
     project_name = models.CharField('название проекта', max_length=100)
     project_description = models.TextField('описание проекта')
+    pub_date = models.DateTimeField('дата публикции', default=datetime.now())
+    technologies = models.ManyToManyField(Technology, 'технологии')
 
     def __str__(self):
         return self.project_name
@@ -12,15 +26,6 @@ class Project(models.Model):
     class Meta:
         verbose_name = 'Проект'
         verbose_name_plural = 'Проекты'
-
-
-class Ad(models.Model):
-    project = models.ForeignKey(Project, on_delete=models.CASCADE)
-    ad_pub_date = models.DateTimeField('дата публикации')
-
-    class Meta:
-        verbose_name = 'Объявление'
-        verbose_name_plural = 'Объявления'
 
 
 class Member(models.Model):
@@ -35,12 +40,3 @@ class Member(models.Model):
     class Meta:
         verbose_name = 'Участник'
         verbose_name_plural = 'Участники'
-
-
-class Technology(models.Model):
-    project = models.ForeignKey(Project, on_delete=models.CASCADE)
-    technology_name = models.CharField("название технологии", max_length=20)
-
-    class Meta:
-        verbose_name = 'Технология'
-        verbose_name_plural = 'Технологии'
