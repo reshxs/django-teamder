@@ -16,9 +16,9 @@ class Technology(models.Model):
 
 class Project(models.Model):
     project_name = models.CharField('название проекта', max_length=100)
-    project_description = models.TextField('описание проекта')
+    project_description = models.TextField('описание проекта', blank=True)
     pub_date = models.DateTimeField('дата публикции', default=datetime.now())
-    technologies = models.ManyToManyField(Technology, 'технологии')
+    technologies = models.ManyToManyField(Technology, 'технологии', blank=True)
 
     def __str__(self):
         return self.project_name
