@@ -5,4 +5,4 @@ def index(request):
     return HttpResponse('user')
 
 def detail(request, user_id):
-	return render(request, 'user/detail.html')
+	return render(request, 'user_accounts/detail.html')
