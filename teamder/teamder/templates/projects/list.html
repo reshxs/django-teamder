@@ -4,6 +4,15 @@
 
 {% block content %}
 
-    Контент
+    Последние проекты:
+<ul>
+    {% if projects_list %}
+        {% for project in projects_list %}
+            <li> <a href = "{% url 'projects:detail' project.id %}"> {{ project.project_name }} ({{project.pub_date}}) </a> </li>
+        {% endfor %}
+    {% else %}
+        Проекты не найдены
+    {% endif %}
+</ul>
 
 {% endblock %}

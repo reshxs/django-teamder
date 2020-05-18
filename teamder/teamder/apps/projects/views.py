@@ -15,7 +15,7 @@ def detail(request, project_id):
     except:
         raise Http404("Проект не найден!")
 
-    member_list = a.member_set.order_by()
-    technology_list = a.technology_set.order_by()
-    return render(request, 'projects/detail.html',
-                  {'project': a, 'technology_list': technology_list, 'member_list': member_list})
+    #member_list = a.member_set.order_by()
+    #technology_list = a.technology_set.order_by()
+    return render(request, 'projects/detail.html', { 'project': a})
+                #  {'project': a, 'technology_list': technology_list, 'member_list': member_list})

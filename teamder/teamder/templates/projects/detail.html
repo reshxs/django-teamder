@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %} {{project.project_name}} {% endblock %}
+
+{% block content %}
+
+    {% if project %}
+        <ul>
+            <li> {{project.project_name}}</li>
+            <li> {{project.project_description}}</li>
+            <li> {{project.pub_date}} </li>
+        </ul>
+    {% endif %}
+
+{% endblock %}
