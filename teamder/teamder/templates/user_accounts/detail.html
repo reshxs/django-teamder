@@ -17,7 +17,8 @@
         <p>{{user_account.user_bio}}</p>
 
         {% if user_current_project %}
-            <h3>Сейчас {{user_account.user.first_name}} работает над проектом {{user_current_project.project_name}}</h3>
+            <h3>Сейчас {{user_account.user.first_name}} работает над проектом:</h3>
+            <a href="{% url 'projects:detail' user_current_project.id%}">{{user_current_project.project_name}}</a>
         {% else %}
             <h3>Сейчас {{user_account.user.first_name}} ни чем не занимается</h3>
         {% endif %}
@@ -26,7 +27,9 @@
             <h3>Проекты:</h3>
             <ul>
                 {% for project in user_projects %}
-                    <li>{{project.project_name}}</li>
+                    <li>
+                        <a href="{% url 'projects:detail' project.id%}">{{project.project_name}}</a>
+                    </li>
                 {% endfor %}
             </ul>
         {% else %}

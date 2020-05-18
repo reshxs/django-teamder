@@ -29,7 +29,7 @@ class Project(models.Model):
 
 
 class Member(models.Model):
-    user = models.OneToOneField(get_user_model(), on_delete=models.CASCADE, default=0, primary_key=True)
+    user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, default=0, primary_key=True, unique=False)
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
     member_role = models.CharField('роль участника', max_length=50)
 
