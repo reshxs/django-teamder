@@ -5,11 +5,29 @@
 {% block content %}
 
     {% if project %}
-        <ul>
-            <li> {{project.project_name}}</li>
-            <li> {{project.project_description}}</li>
-            <li> {{project.pub_date}} </li>
-        </ul>
+        <h1>{{project.project_name}}</h1>
+        <p>{{project.project_description}}</p>
+        <h3>Технологии: </h3>
+        {% if technology_list %}
+            <ul>
+                {% for t in technologies %}
+                    <li>{{t.technology_name}}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>Не указана ни одна технология</p>
+        {% endif %}
+        <h3>Участники:</h3>
+        {% if member_list %}
+            <ul>
+                {% for member in member_list %}
+                    <li>{{member.user.username}} - {{member.member_role}}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>Этим проектом ни кто не занимается</p>
+        {% endif %}
+        <p>project.pub_date</p>
     {% endif %}
 
 {% endblock %}

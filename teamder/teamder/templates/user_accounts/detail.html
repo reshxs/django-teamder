@@ -4,11 +4,33 @@
 
 {% block content %}
 
-    {% if project %}
-        <ul>
-            <li> {{user.username}}</li>
-            <li> {{user.user_bio}}</li>
-        </ul>
+    {% if user_account %}
+
+        <h1>{{user_account.user.username}}</h1>
+        <p>{{user_account.user.first_name}} {{user_account.user.last_name}}</p>
+        <p>{{user_account.user.email}}</p>
+        <h3>О себе:</h3>
+        <p>{{user_account.user_bio}}</p>
+
+        {% if user_current_project %}
+            <h3>Сейчас {{user_account.user.first_name}} работает над проектом {{user_current_project.project_name}}</h3>
+        {% else %}
+            <h3>Сейчас {{user_account.user.first_name}} ни чем не занимается</h3>
+        {% endif %}
+
+        {% if user_projects %}
+            <h3>Проекты:</h3>
+            <ul>
+                {% for project in user_projects %}
+                    <li>{{project.project_name}}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <h3>{{user_account.user.first_name}} не работал ни с одним проектом</h3>
+        {% endif %}
+
+    {% else %}
+        <h1>Пользователь не найден!</h1>
     {% endif %}
 
 {% endblock %}

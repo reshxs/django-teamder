@@ -1,6 +1,6 @@
-from django.http import HttpResponse
-from django.http import Http404, HttpResponseRedirect
+from django.http import Http404
 from django.shortcuts import render
+from django.contrib.auth.models import User
 
 from .models import UserAccount
 
@@ -12,8 +12,16 @@ def index(request):
 
 def detail(request, user_id):
     try:
-        a = UserAccount.objects.get(id=user_id)
+        user = User.objects.get(id=user_id)
+        user_account = UserAccount.objects.get(user=user)
     except:
         raise Http404("Пользователь не найден!")
 
-    return render(request, 'user_accounts/detail.html', {'user_account': a})
+    user_projects = user_account.user_projects.all()
+    user_current_project = user_account.user_current_project
+
+    return render(request, 'user_accounts/detail.html', {
+        'user_account': user_account,
+        'user_projects': user_projects,
+        'user_current_project': user_current_project,
+    })

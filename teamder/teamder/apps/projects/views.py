@@ -1,7 +1,7 @@
-from django.http import Http404, HttpResponseRedirect
+from django.http import Http404
 from django.shortcuts import render
 
-from .models import Project, Member, Technology
+from .models import Project
 
 
 def index(request):
@@ -15,7 +15,10 @@ def detail(request, project_id):
     except:
         raise Http404("Проект не найден!")
 
-    #member_list = a.member_set.order_by()
-    #technology_list = a.technology_set.order_by()
-    return render(request, 'projects/detail.html', { 'project': a})
-                #  {'project': a, 'technology_list': technology_list, 'member_list': member_list})
+    member_list = a.member_set.all()
+    technology_list = a.technologies.all()
+    return render(request, 'projects/detail.html', {
+        'project': a,
+        'member_list': member_list,
+        'technology_list': technology_list,
+    })
