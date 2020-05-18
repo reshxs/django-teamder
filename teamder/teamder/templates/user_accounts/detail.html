@@ -8,23 +8,29 @@
     <a href="http://127.0.0.1:8000/">главная</a>
 
 
-    {% if user_account %}
+    {% if user %}
 
-        <h1>{{user_account.user.username}}</h1>
-        <p>{{user_account.user.first_name}} {{user_account.user.last_name}}</p>
-        <p>{{user_account.user.email}}</p>
-        <h3>О себе:</h3>
-        <p>{{user_account.user_bio}}</p>
+        <h1>{{user.username}}</h1>
+        <h3>Информация:</h3>
+        <p>
+            {{user.first_name}} {{user.last_name}}
+            {% if user.is_superuser %}
+                (Администратор)
+            {% endif %}
+        </p>
+        <p>{{user.email}}</p>
+        <p>{{user.useraccount.user_bio}}</p>
 
         {% if user_current_project %}
-            <h3>Сейчас {{user_account.user.first_name}} работает над проектом:</h3>
+            <h3>Сейчас {{user.first_name}} работает над проектом:</h3>
             <a href="{% url 'projects:detail' user_current_project.id%}">{{user_current_project.project_name}}</a>
         {% else %}
-            <h3>Сейчас {{user_account.user.first_name}} ни чем не занимается</h3>
+            <h3>Сейчас {{user.first_name}} ни чем не занимается</h3>
         {% endif %}
 
         {% if user_projects %}
             <h3>Проекты:</h3>
+            <p>Всего проектов: {{user_projects_count}}</p>
             <ul>
                 {% for project in user_projects %}
                     <li>
@@ -33,7 +39,7 @@
                 {% endfor %}
             </ul>
         {% else %}
-            <h3>{{user_account.user.first_name}} не работал ни с одним проектом</h3>
+            <h3>{{user.first_name}} не работал ни с одним проектом</h3>
         {% endif %}
 
     {% else %}

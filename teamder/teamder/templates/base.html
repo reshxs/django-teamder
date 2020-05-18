@@ -4,11 +4,24 @@
     <meta charset="UTF-8">
     <title>{% block title %}Teamder{% endblock %}</title>
 </head>
-
+<body>
+    <ul class="main-menu">
     {% block content %}
-        <a href="/projects">Проекты   </a>
-        <a href="/user_accounts">Пользователи   </a>
-        <a href="/admin">Админка   </a>
+        <h1>Teamder</h1>
+        <ul>
+            <li> <a href="/projects">Проекты   </a> </li>
+            <li> <a href="/user_accounts">Пользователи   </a> </li>
+            <li> <a href="/admin">Админка   </a> </li>
+        </ul>
     {% endblock %}
-
+    </ul>
+    <ul class="login">
+        {% if user.is_authenticated %}
+        <li><a href="{% url 'user_accounts:detail' user.id %}">{{ user.get_username }}</a></li>
+            <li><a href="{% url 'logout' %}?next={{request.path}}">Выйти</a></li>
+        {% else %}
+            <li><a href="{% url 'login' %}?next={{request.path}}">Войти</a></li>
+        {% endif %}
+    </ul>
+</body>
 </html>

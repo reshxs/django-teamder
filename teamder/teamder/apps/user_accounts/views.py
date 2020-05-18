@@ -13,15 +13,15 @@ def index(request):
 def detail(request, user_id):
     try:
         user = User.objects.get(id=user_id)
-        user_account = user.useraccount
     except:
         raise Http404("Пользователь не найден!")
 
-    user_projects = user_account.user_projects.all()
-    user_current_project = user_account.user_current_project
+    user_projects = user.useraccount.user_projects.all()
+    user_current_project = user.useraccount.user_current_project
 
     return render(request, 'user_accounts/detail.html', {
-        'user_account': user_account,
+        'user': user,
         'user_projects': user_projects,
+        'user_projects_count': user_projects.count(),
         'user_current_project': user_current_project,
     })
