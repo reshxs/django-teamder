@@ -3,13 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="d356b270-898e-4f82-8e39-fefe7287fdcc" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/teamder/teamder/apps/projects/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/teamder/teamder/apps/projects/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/teamder/teamder/apps/user_accounts/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/teamder/teamder/apps/user_accounts/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/teamder/teamder/apps/user_accounts/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/teamder/teamder/apps/user_accounts/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/teamder/teamder/templates/projects/detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/teamder/teamder/templates/projects/detail.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/teamder/teamder/templates/projects/list.html" beforeDir="false" afterPath="$PROJECT_DIR$/teamder/teamder/templates/projects/list.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/teamder/teamder/templates/user_accounts/detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/teamder/teamder/templates/user_accounts/detail.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/teamder/teamder/templates/user_accounts/list.html" beforeDir="false" afterPath="$PROJECT_DIR$/teamder/teamder/templates/user_accounts/list.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

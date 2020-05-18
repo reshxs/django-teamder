@@ -4,15 +4,18 @@
 
 {% block content %}
 
+    <a href="http://127.0.0.1:8000/">главная</a>
+
     <h1>Последние проекты:</h1>
-    <ul>
+
     {% if projects_list %}
+        <ul>
         {% for project in projects_list %}
             <li> <a href = "{% url 'projects:detail' project.id %}"> {{ project.project_name }} ({{project.pub_date}}) </a> </li>
         {% endfor %}
+        </ul>
     {% else %}
         <p>Проекты не найдены</p>
     {% endif %}
-    </ul>
 
 {% endblock %}

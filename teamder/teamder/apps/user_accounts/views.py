@@ -13,7 +13,7 @@ def index(request):
 def detail(request, user_id):
     try:
         user = User.objects.get(id=user_id)
-        user_account = UserAccount.objects.get(user=user)
+        user_account = user.useraccount
     except:
         raise Http404("Пользователь не найден!")
 
