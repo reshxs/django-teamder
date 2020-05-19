@@ -1,5 +1,7 @@
 from django.http import Http404
 from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
+
 
 from .models import Project
 
@@ -9,6 +11,7 @@ def index(request):
     return render(request, 'projects/list.html', {'projects_list': projects_list})
 
 
+@login_required()
 def detail(request, project_id):
     try:
         a = Project.objects.get(id=project_id)

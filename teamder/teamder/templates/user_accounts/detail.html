@@ -4,28 +4,28 @@
 
 {% block content %}
 
-    <a href="http://127.0.0.1:8000/user_accounts/">назад</a>
-    <a href="http://127.0.0.1:8000/">главная</a>
+    <a href="/user_accounts">назад</a>
+    <a href="/">главная</a>
 
 
-    {% if user %}
+    {% if current_user %}
 
-        <h1>{{user.username}}</h1>
+        <h1>{{current_user.username}}</h1>
         <h3>Информация:</h3>
         <p>
-            {{user.first_name}} {{user.last_name}}
-            {% if user.is_superuser %}
+            {{current_user.first_name}} {{current_user.last_name}}
+            {% if current_user.is_superuser %}
                 (Администратор)
             {% endif %}
         </p>
-        <p>{{user.email}}</p>
-        <p>{{user.useraccount.user_bio}}</p>
+        <p>{{current_user.email}}</p>
+        <p>{{current_user.useraccount.user_bio}}</p>
 
         {% if user_current_project %}
-            <h3>Сейчас {{user.first_name}} работает над проектом:</h3>
+            <h3>Сейчас {{current_user.first_name}} работает над проектом:</h3>
             <a href="{% url 'projects:detail' user_current_project.id%}">{{user_current_project.project_name}}</a>
         {% else %}
-            <h3>Сейчас {{user.first_name}} ни чем не занимается</h3>
+            <h3>Сейчас {{current_user.first_name}} ни чем не занимается</h3>
         {% endif %}
 
         {% if user_projects %}
@@ -39,7 +39,7 @@
                 {% endfor %}
             </ul>
         {% else %}
-            <h3>{{user.first_name}} не работал ни с одним проектом</h3>
+            <h3>{{current_user.first_name}} не работал ни с одним проектом</h3>
         {% endif %}
 
     {% else %}

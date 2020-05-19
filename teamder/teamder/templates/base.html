@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <title>{% block title %}Teamder{% endblock %}</title>
 </head>
+
 <body>
+
     <ul class="main-menu">
     {% block content %}
         <h1>Teamder</h1>
@@ -15,6 +17,7 @@
         </ul>
     {% endblock %}
     </ul>
+
     <ul class="login">
         {% if user.is_authenticated %}
         <li><a href="{% url 'user_accounts:detail' user.id %}">{{ user.get_username }}</a></li>
@@ -23,5 +26,6 @@
             <li><a href="{% url 'login' %}?next={{request.path}}">Войти</a></li>
         {% endif %}
     </ul>
+
 </body>
 </html>
