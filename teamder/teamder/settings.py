@@ -128,7 +128,5 @@ STATIC_URL = '/static/'
 
 STATIC_ROOT = os.path.join(PROJECT_ROOT, 'static')
 
-
-LOGIN_URL = r'^auth/login/$'
 # Redirect to home url after login
 LOGIN_REDIRECT_URL = '/'

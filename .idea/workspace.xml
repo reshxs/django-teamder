@@ -4,7 +4,12 @@
     <list default="true" id="d356b270-898e-4f82-8e39-fefe7287fdcc" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/teamder/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/teamder/db.sqlite3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/teamder/teamder/apps/projects/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/teamder/teamder/apps/projects/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/teamder/teamder/apps/projects/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/teamder/teamder/apps/projects/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/teamder/teamder/apps/projects/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/teamder/teamder/apps/projects/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/teamder/teamder/apps/projects/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/teamder/teamder/apps/projects/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/teamder/teamder/apps/user_accounts/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/teamder/teamder/apps/user_accounts/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/teamder/teamder/apps/user_accounts/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/teamder/teamder/apps/user_accounts/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/teamder/teamder/apps/user_accounts/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/teamder/teamder/apps/user_accounts/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/teamder/teamder/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/teamder/teamder/settings.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/teamder/teamder/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/teamder/teamder/templates/base.html" afterDir="false" />
@@ -12,6 +17,7 @@
       <change beforePath="$PROJECT_DIR$/teamder/teamder/templates/projects/list.html" beforeDir="false" afterPath="$PROJECT_DIR$/teamder/teamder/templates/projects/list.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/teamder/teamder/templates/user_accounts/detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/teamder/teamder/templates/user_accounts/detail.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/teamder/teamder/templates/user_accounts/list.html" beforeDir="false" afterPath="$PROJECT_DIR$/teamder/teamder/templates/user_accounts/list.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/teamder/teamder/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/teamder/teamder/urls.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -73,5 +79,9 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="492" y="281" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1366.728@0.0.1366.728" timestamp="1589804547581" />
+    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup" timestamp="1589896843482">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup/0.0.1366.728@0.0.1366.728" timestamp="1589896843482" />
   </component>
 </project>

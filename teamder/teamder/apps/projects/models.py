@@ -19,6 +19,9 @@ class Project(models.Model):
     project_description = models.TextField('описание проекта', blank=True)
     pub_date = models.DateTimeField('дата публикции', default=datetime.now())
     technologies = models.ManyToManyField(Technology, 'технологии', blank=True)
+    creator = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, null=True)
+    members = models.ManyToManyField(get_user_model(), 'Участники', null=True, blank=True)
+    is_done = models.BooleanField('Проект завершен', default=False)
 
     def __str__(self):
         return self.project_name
@@ -26,16 +29,3 @@ class Project(models.Model):
     class Meta:
         verbose_name = 'Проект'
         verbose_name_plural = 'Проекты'
-
-
-class Member(models.Model):
-    user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, default=0, primary_key=True, unique=False)
-    project = models.ForeignKey(Project, on_delete=models.CASCADE)
-    member_role = models.CharField('роль участника', max_length=50)
-
-    def __str__(self):
-        return self.user.username
-
-    class Meta:
-        verbose_name = 'Участник'
-        verbose_name_plural = 'Участники'

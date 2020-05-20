@@ -4,11 +4,12 @@
 
 {% block content %}
 
-    <a href="/projects">назад</a>
-    <a href="/">главная</a>
-
     {% if project %}
         <h1>{{project.project_name}}</h1>
+        <h3>Создатель:</h3>
+        <a href="{% url 'user_accounts:detail' project.creator.id %}">
+            {{project.creator.first_name}} {{project.creator.last_name}}
+        </a>
         <p>{{project.project_description}}</p>
         <h3>Технологии: </h3>
         {% if technology_list %}
@@ -25,15 +26,14 @@
             <ul>
                 {% for member in member_list %}
                     <li>
-                        <p>{{member.member_role}}:</p>
-                        <a href="{% url 'user_accounts:detail' member.user.id %}">
-                        {{member.user.first_name}} {{member.user.last_name}}
+                        <a href="{% url 'user_accounts:detail' member.id %}">
+                        {{member.first_name}} {{member.last_name}}
                         </a>
                     </li>
                 {% endfor %}
             </ul>
         {% else %}
-            <p>Этим проектом ни кто не занимается</p>
+            <p>К этому проекту еще ни кто не присоединился. Вы можете стать первым!</p>
         {% endif %}
         <p>Дата публикации - {{project.pub_date}}</p>
     {% endif %}

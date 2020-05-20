@@ -17,7 +17,6 @@ class UserAccount(models.Model):
         null=True,
         blank=True)
 
-    # Автоматическое обновление модели UserAccount при создании/изменении модели user
     @receiver(post_save, sender=get_user_model())
     def create_user_account(sender, instance, created, **kwargs):
         if created:
@@ -26,6 +25,35 @@ class UserAccount(models.Model):
     @receiver(post_save, sender=get_user_model())
     def save_user_account(sender, instance, created, **kwargs):
         instance.useraccount.save()
+
+    @receiver(post_save, sender=Project)
+    def update_current_project(sender, instance, created, **kwargs):
+        ua = instance.creator.useraccount
+
+        if created:
+            ua.user_current_project = instance
+        if instance.is_done:
+            ua.user_current_project = None
+
+        ua.user_projects.add(instance)
+        ua.save()
+
+    # временно не рабочий метод =(
+    @receiver(post_save, sender=Project)
+    def update_members_projects(sender, instance, created, **kwargs):
+        for member in instance.members.all():
+            m = member.useraccount
+            m.user_projects.add(instance)
+
+            if instance.is_done:
+                m.current_project = None
+            else:
+                m.current_project = instance
+
+            m.save()
+
+    def is_busy(self):
+        return self.user_current_project is not None
 
     def __str__(self):
         return self.user.username

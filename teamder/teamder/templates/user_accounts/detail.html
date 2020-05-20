@@ -4,13 +4,13 @@
 
 {% block content %}
 
-    <a href="/user_accounts">назад</a>
-    <a href="/">главная</a>
-
-
     {% if current_user %}
 
         <h1>{{current_user.username}}</h1>
+            {% if user.id == current_user.id %}
+                <p>Это ваш профиль</p>
+                <a href ="{% url 'user_accounts:configure' user.id %}">Редактировать</a>
+            {% endif %}
         <h3>Информация:</h3>
         <p>
             {{current_user.first_name}} {{current_user.last_name}}
