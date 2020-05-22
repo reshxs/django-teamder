@@ -1,9 +1,34 @@
-{% extends "base.html %}
+{% extends "base.html" %}
 
 {% block title %} Новое объявление {% endblock %}
 
 {% block content %}
 
     <h1>Создать объявление</h1>
+    <form method = post>
+        <fieldset>
+            <label for="name">Название проекта: </label>
+            <input id="name" type="text" name="name" value="">
+        </fieldset>
+
+        <fieldset>
+            <label for="description">Описание проекта</label>
+            <textarea id="description" name="description"></textarea>
+        </fieldset>
+
+        <fieldset>
+        <label>Выберите технологии: </label>
+            <select>
+                <option value=""></option>
+                {% for technology in technology_list %}
+                <option value="{{technology.technology_name}}">{{technology.technology_name}}</option>
+                {% endfor %}
+            </select>
+        </fieldset>
+
+        <fieldset>
+            <input type="submit" value="Создать объявление">
+        </fieldset>
+    </form>
 
 {% endblock %}

@@ -5,15 +5,36 @@ from django.contrib.auth.decorators import login_required
 from .models import Project, Technology
 
 
-def parse_request(request, parameter):
-    result = request.GET.get(parameter)
-    return result if result is not None else ''
+def get_by_tech(parameter):
+    return Technology.objects.get(technology_name=parameter).project_set.all() \
+        if parameter != "" and parameter is not None else Project.objects.all()
+
+
+def get_by_name(query, parameter):
+    return query.filter(project_name__icontains=parameter) if parameter is not None else query
+
+
+def get_by_status(query, parameter):
+    if parameter == 'true':
+        return query.filter(is_done=True)
+    elif parameter == 'false':
+        return query.filter(is_done=False)
+    else:
+        return query
 
 
 def index(request):
-    tech = parse_request(request, 'tech')
-    name = parse_request(request, 'name')
-    projects_list = Project.objects.filter(project_name__icontains=name).order_by('-pub_date')
+    # Собираем данные из request
+    tech = request.GET.get('tech')
+    name = request.GET.get('name')
+    status = request.GET.get('done')
+
+    # Фильтруем список
+    projects_list = get_by_tech(tech)
+    projects_list = get_by_name(projects_list, name)
+    projects_list = get_by_status(projects_list, status)
+    projects_list = projects_list.order_by('-pub_date')
+
     technology_list = Technology.objects.all()
     return render(request, 'projects/list.html', {
         'projects_list': projects_list,
@@ -39,4 +60,5 @@ def detail(request, project_id):
 
 @login_required
 def add_new(request):
-    return HttpResponse('Тут можно будет создать объявление')
+    technology_list = Technology.objects.all()
+    return render(request, 'projects/add_new.html', {'technology_list': technology_list})

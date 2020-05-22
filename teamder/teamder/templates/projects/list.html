@@ -5,18 +5,29 @@
 {% block content %}
 
     <h1>Последние проекты:</h1>
-    <a href="{% url 'projects:add_new' %}">Создать объявление</a>
+    <a href="{% url 'projects:add_new' %}">Создать Проект</a>
+    <h3>Искать проекты: </h3>
     <form method="get">
         <label for="search_name">Название: </label>
         <input id="search_name" type="search" name="name" value="">
-        <label for="search_tech">Используемая технология: </label>
+
+        <label for="search_tech">Технология: </label>
         <select id="search_tech" name="tech">
+            <option value=""></option>
             {% if technology_list %}
                 {% for tech in technology_list %}
                     <option value="{{tech.technology_name}}">{{tech.technology_name}}</option>
                 {% endfor %}
             {% endif %}
         </select>
+
+        <label for="search_done">Статус: </label>
+        <select id="search_done" name="done">
+            <option value=""></option>
+            <option value="true">Завершен</option>
+            <option value="false">В работе</option>
+        </select>
+
         <input type="submit" value="OK">
     </form>
 
