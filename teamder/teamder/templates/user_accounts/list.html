@@ -5,10 +5,17 @@
 {% block content %}
 
     <h1>Пользователи</h1>
-    {% if user_accounts_list %}
+
+    <form method="get">
+        <label for="search_name">Поиск: </label>
+        <input id="search_name" type="text" name="name" value="">
+        <input type="submit" value="OK">
+    </form>
+
+    {% if user_list %}
         <ul>
-        {% for user in user_accounts_list %}
-            <li> <a href = "{% url 'user_accounts:detail' user.user.id %}"> {{ user.user.username }} </a> </li>
+        {% for current_user in user_list %}
+            <li> <a href = "{% url 'user_accounts:detail' current_user.id %}"> {{ current_user.username }} </a> </li>
         {% endfor %}
         </ul>
     {% else %}

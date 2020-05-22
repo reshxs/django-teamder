@@ -4,9 +4,22 @@
 
 {% block content %}
 
-    <a href="{% url 'projects:add_new' %}">Создать объявление</a>
-
     <h1>Последние проекты:</h1>
+    <a href="{% url 'projects:add_new' %}">Создать объявление</a>
+    <form method="get">
+        <label for="search_name">Название: </label>
+        <input id="search_name" type="search" name="name" value="">
+        <label for="search_tech">Используемая технология: </label>
+        <select id="search_tech" name="tech">
+            {% if technology_list %}
+                {% for tech in technology_list %}
+                    <option value="{{tech.technology_name}}">{{tech.technology_name}}</option>
+                {% endfor %}
+            {% endif %}
+        </select>
+        <input type="submit" value="OK">
+    </form>
+
 
     {% if projects_list %}
         <ul>

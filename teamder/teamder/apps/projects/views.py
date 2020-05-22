@@ -5,28 +5,20 @@ from django.contrib.auth.decorators import login_required
 from .models import Project, Technology
 
 
-def filter_objects(filter_parameter):
-    result = Project.objects
-
-    f = filter_parameter.split('?')
-    for parameter in f:
-        if parameter != '':
-            parameter = parameter.split('=')
-            if parameter[0] == 'name':
-                for req in parameter[1].split('+'):
-                    result = result.filter(project_name__icontains=req)
-            if parameter[0] == 'done':
-                result = result.filter(is_done=parameter[1] == 'true')
-
-    return result.order_by('-pub_date')
+def parse_request(request, parameter):
+    result = request.GET.get(parameter)
+    return result if result is not None else ''
 
 
-def index(request, filter_request=''):
-    if filter_request != '':
-        projects_list = filter_objects(filter_request)
-    else:
-        projects_list = Project.objects.order_by('-pub_date')
-    return render(request, 'projects/list.html', {'projects_list': projects_list})
+def index(request):
+    tech = parse_request(request, 'tech')
+    name = parse_request(request, 'name')
+    projects_list = Project.objects.filter(project_name__icontains=name).order_by('-pub_date')
+    technology_list = Technology.objects.all()
+    return render(request, 'projects/list.html', {
+        'projects_list': projects_list,
+        'technology_list': technology_list
+    })
 
 
 @login_required

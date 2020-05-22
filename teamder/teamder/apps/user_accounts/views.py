@@ -7,8 +7,10 @@ from .models import UserAccount
 
 
 def index(request):
-    user_accounts_list = UserAccount.objects.all()
-    return render(request, 'user_accounts/list.html', {'user_accounts_list': user_accounts_list})
+    name = request.GET.get('name')
+    name = name if name is not None else ''
+    user_list = User.objects.filter(username__icontains=name)
+    return render(request, 'user_accounts/list.html', {'user_list': user_list})
 
 
 @login_required
