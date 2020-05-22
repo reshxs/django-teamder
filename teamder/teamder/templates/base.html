@@ -3,34 +3,72 @@
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}Teamder{% endblock %}</title>
+
+            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+            integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+            integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+
+            <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+
+            <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+            integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+
 </head>
 
 <body>
 
     {% block header%}
-    <a href="/">Главная</a>
-        {% if user.is_authenticated %}
-            <a href="{% url 'projects:index' %}">Проекты</a>
-            <a href="{% url 'user_accounts:index' %}">Пользователи</a>
-            {% if user.is_superuser %}
-                <a href="/admin">Админка</a>
-            {% endif %}
-            <a href="{% url 'user_accounts:detail' user.id %}">{{ user.get_username }}</a>
-            <a href="{% url 'logout' %}?next={{request.path}}">Выйти</a>
-        {% else %}
-            <a href="{% url 'login' %}?next={{request.path}}">Войти</a>
-        {% endif %}
-    {% endblock%}
 
-    {% block content %}
-    <ul class="main-menu">
-        <h1>Teamder</h1>
-        <p>
-            Это ранняя версия нашего сайтика.
-            Если Арсений не забудет, тот тут появится супер-пупер крутой и няшный дизайн :3
-        </p>
-    </ul>
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <a href="http://127.0.0.1:8000/" class="navbar-brand"> <h2>Teamder</h2> </a>
+            </div>
+
+            <div>
+                <ul class="nav navbar-nav">
+                     {% if user.is_authenticated %}
+                        {% if user.is_superuser %}
+                            <li class="active"><a href="/admin"><button class="btn btn-default">Админка</button></a></li>
+                        {% endif %}
+                        <li class="active"><a href="{% url 'projects:index' %}"><button class="btn btn-default">Проекты</button></a></li>
+                        <li class="active"><a href="{% url 'user_accounts:index' %}"><button class="btn btn-default">Пользователи</button></a></li>
+                        <li class="active"><a href="{% url 'user_accounts:detail' user.id %}"><button class="btn btn-default">{{ user.get_username }}</button></a></li>
+                        <li class="active"><a href="{% url 'logout' %}?next={{request.path}}"><button class="btn btn-default">Выйти</button></a></li>
+                     {% else %}
+                    <li class="active"><a href=""><button class="btn btn-primary" style="border-radius: 50px;">Зарегистрироваться</button></a></li>
+                    <li class="active"><a href="{% url 'login' %}?next={{request.path}}"><button class="btn btn-default">Войти</button></a></li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+
     {% endblock %}
 
-</body>
+    <br><br><br><br><br><br><br>
+    {% block content %}
+
+    {% if user.is_authenticated %}
+
+    {% else %}
+     <div class="container">
+      <div class="row">
+        <div class="col-lg-5">
+          <h1 align="left">Лучшее решение для поиска команды</h1>
+            <br>
+          <h6 style="color: gray" align="left">Сегодня поиск команды очень сложный и трудоёмкий процесс. Мы поможем тебе!</h6>
+            <br><br><br><br><br>
+            <h2 align="center"><a href="{% url 'projects:index' %}"><button class="btn btn-primary" style="border-radius: 50px;">Поиск проекта</button></a></h2>
+          </div>
+        <div class="col-lg-7">
+          <img src="hero-img.png" class="img-fluid animated">
+        </div>
+      </div>
+    </div>
+    {% endif %}
+    {% endblock %}
+
 </html>
