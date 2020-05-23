@@ -3,43 +3,46 @@
 {% block title %}Последние объявления{% endblock %}
 
 {% block content %}
+<div class="container">
+        <form method="get">
+            <label for="search_name">Название: </label>
+            <input id="search_name" type="search" name="name" value="">
+            <label for="search_tech">Технология: </label>
+            <select id="search_tech" name="tech">
+                <option value=""></option>
+                {% if technology_list %}
+                    {% for tech in technology_list %}
+                        <option value="{{tech.technology_name}}">{{tech.technology_name}}</option>
+                    {% endfor %}
+                {% endif %}
+            </select>
+                <label for="search_done">Статус: </label>
+                <select id="search_done" name="done">
+                    <option value=""></option>
+                    <option value="true">Завершен</option>
+                    <option value="false">В работе</option>
+            </select>
+            <input type="submit" value="OK">
+            <!-- Переделать кнопку -->
+            <a href="{% url 'projects:add_new' %}"><button class="btn btn-primary" style="border-radius: 50px; float: right;">Создать Проект</button></a>
+        </form>
 
-    <h1>Последние проекты:</h1>
-    <a href="{% url 'projects:add_new' %}">Создать Проект</a>
-    <h3>Искать проекты: </h3>
-    <form method="get">
-        <label for="search_name">Название: </label>
-        <input id="search_name" type="search" name="name" value="">
 
-        <label for="search_tech">Технология: </label>
-        <select id="search_tech" name="tech">
-            <option value=""></option>
-            {% if technology_list %}
-                {% for tech in technology_list %}
-                    <option value="{{tech.technology_name}}">{{tech.technology_name}}</option>
-                {% endfor %}
-            {% endif %}
-        </select>
-
-        <label for="search_done">Статус: </label>
-        <select id="search_done" name="done">
-            <option value=""></option>
-            <option value="true">Завершен</option>
-            <option value="false">В работе</option>
-        </select>
-
-        <input type="submit" value="OK">
-    </form>
-
+    <br>
 
     {% if projects_list %}
-        <ul>
         {% for project in projects_list %}
-            <li> <a href = "{% url 'projects:detail' project.id %}"> {{ project.project_name }} ({{project.pub_date}}) </a> </li>
+            <div class="container" style="height: 170px; background-color: #3A7FE7; background: rgba(58, 127, 231, 0.3); border-radius: 25px">
+                <a href="{% url 'projects:detail' project.id %}"><button class="btn btn-default" style=" font-size: 200%; border-radius: 25px"> {{ project.project_name }} </button></a>
+                <br>
+                <h5> Роль: *************</h5>
+                <h5> Необходимые навыки: *****, ******, ****** </h5>
+                <h5> <small>Дата публикации: {{project.pub_date}}</small></h5>
+            </div>
+            <br>
         {% endfor %}
-        </ul>
     {% else %}
         <p>Проекты не найдены</p>
     {% endif %}
-
+</div>
 {% endblock %}
