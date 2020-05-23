@@ -4,38 +4,53 @@
 
 {% block content %}
 
-    {% if project %}
-        <h1>{{project.project_name}}</h1>
-        <h3>Создатель:</h3>
-        <a href="{% url 'user_accounts:detail' project.creator.id %}">
-            {{project.creator.first_name}} {{project.creator.last_name}}
-        </a>
-        <p>{{project.project_description}}</p>
-        <h3>Технологии: </h3>
-        {% if technology_list %}
-            <ul>
-                {% for t in technology_list %}
-                    <li>{{t.technology_name}}</li>
-                {% endfor %}
-            </ul>
-        {% else %}
-            <p>Не указана ни одна технология</p>
+<div class="container">
+    <div class="container">
+        <div class="row">
+        {% if project %}
+            <h2>{{project.project_name}}</h2>
+        </div>
+        <br><br>
+        <div class="row">
+            <h5>Автор &nbsp;&nbsp;&nbsp;&nbsp;</h5>
+            <a href="{% url 'user_accounts:detail' project.creator.id %}">{{project.creator.first_name}} {{project.creator.last_name}}</a>
+            <h3>{{project.project_description}}</h3>
+        </div>
+        <div class="row">
+            <h5>Используемые технологии: </h5>
+            {% if technology_list %}
+                <ul>
+                    {% for t in technology_list %}
+                        <li>{{t.technology_name}}</li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>Не указана ни одна технология</p>
+            {% endif %}
+        </div>
+        <div class="row">
+            <h5>Описание проекта:</h5>
+        </div>
+        <div class="row">
+            <h5>Другие участники:</h5>
+            {% if member_list %}
+                <ul>
+                    {% for member in member_list %}
+                        <li><a href="{% url 'user_accounts:detail' member.id %}">{{member.first_name}} {{member.last_name}}</a></li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>К этому проекту еще ни кто не присоединился. Вы можете стать первым!</p>
+            {% endif %}
+        </div>
+        <div class="row">
+            <p>Дата публикации - {{project.pub_date}}</p>
+        </div>
         {% endif %}
-        <h3>Участники:</h3>
-        {% if member_list %}
-            <ul>
-                {% for member in member_list %}
-                    <li>
-                        <a href="{% url 'user_accounts:detail' member.id %}">
-                        {{member.first_name}} {{member.last_name}}
-                        </a>
-                    </li>
-                {% endfor %}
-            </ul>
-        {% else %}
-            <p>К этому проекту еще ни кто не присоединился. Вы можете стать первым!</p>
-        {% endif %}
-        <p>Дата публикации - {{project.pub_date}}</p>
-    {% endif %}
-
-{% endblock %}
+        <br><br>
+        <div class="row">
+            <h2 class="col-lg-5" align="center"><a href=""><button class="btn btn-primary" style="border-radius: 50px;">Присоединиться</button></a></h2>
+        </div>
+    {% endblock %}
+    </div>
+</div>
