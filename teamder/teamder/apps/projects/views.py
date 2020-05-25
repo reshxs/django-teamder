@@ -4,7 +4,27 @@ from django.contrib.auth.decorators import login_required
 
 from .models import Project, Technology
 
+from .forms import ProjectForm
+from django.views import View
+from django.utils import timezone
 
+class ProjectForm(View):
+    def post(self, request):
+        project_name = request.POST.get('project_name')
+        project_description = request.POST.get('project_description')
+        pub_date = datetime.now()
+        creator = request.user
+        members_count = request.POST.get('members_count')
+        technologies = request.POST.get('technologies')
+        a = Project(project_name = project_name, 
+            project_description = project_description, 
+            pub_date = pub_date,
+            creator = creator,
+            members_count = members_count,
+            technologies = technologies)
+        a.save()
+        return render(request,'/', {})
+        
 def get_by_tech(parameter):
     return Technology.objects.get(technology_name=parameter).project_set.all() \
         if parameter != "" and parameter is not None else Project.objects.all()
