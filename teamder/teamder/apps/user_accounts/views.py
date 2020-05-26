@@ -1,9 +1,10 @@
 from django.http import Http404, HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 
 from .models import UserAccount
+from .forms import RegistrationForm
 
 
 def index(request):
@@ -29,6 +30,32 @@ def detail(request, user_id):
         'user_projects_count': user_projects.count(),
         'user_current_project': user_current_project,
     })
+
+
+def registration(request):
+    if request.method == "POST":
+        username = request.POST.get('username')
+        first_name = request.POST.get('first_name')
+        last_name = request.POST.get('last_name')
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+        bio = request.POST.get('bio')
+
+        user = User(
+            username=username,
+            first_name=first_name,
+            last_name=last_name,
+            email=email,
+            password=password
+        )
+        user.save()
+        useraccount = user.useraccount
+        useraccount.user_bio = bio
+        useraccount.save()
+        return redirect("/")
+    else:
+        form = RegistrationForm
+        return render(request, 'registration/registration_form.html', {'form': form})
 
 
 @login_required

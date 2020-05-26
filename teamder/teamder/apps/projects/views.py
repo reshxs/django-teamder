@@ -1,30 +1,13 @@
 from django.http import Http404
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-
-from .models import Project, Technology
-
-from .forms import ProjectForm
 from django.views import View
 from django.utils import timezone
 
-class ProjectForm(View):
-    def post(self, request):
-        project_name = request.POST.get('project_name')
-        project_description = request.POST.get('project_description')
-        pub_date = datetime.now()
-        creator = request.user
-        members_count = request.POST.get('members_count')
-        technologies = request.POST.get('technologies')
-        a = Project(project_name = project_name, 
-            project_description = project_description, 
-            pub_date = pub_date,
-            creator = creator,
-            members_count = members_count,
-            technologies = technologies)
-        a.save()
-        return render(request,'/', {})
-        
+from .models import Project, Technology
+from .forms import ProjectForm
+
+
 def get_by_tech(parameter):
     return Technology.objects.get(technology_name=parameter).project_set.all() \
         if parameter != "" and parameter is not None else Project.objects.all()
@@ -55,7 +38,7 @@ def index(request):
     projects_list = get_by_status(projects_list, status)
     projects_list = projects_list.order_by('-pub_date')
 
-    technology_list = Technology.objects.all()
+    technology_list = Technology.objects.order_by('technology_name')
     return render(request, 'projects/list.html', {
         'projects_list': projects_list,
         'technology_list': technology_list
@@ -80,5 +63,26 @@ def detail(request, project_id):
 
 @login_required
 def add_new(request):
-    technology_list = Technology.objects.all()
-    return render(request, 'projects/add_new.html', {'technology_list': technology_list})
+    if request.method == "POST":
+        project_name = request.POST.get('project_name')
+        project_description = request.POST.get('project_description')
+        pub_date = timezone.now()
+        creator = request.user
+        members_count = request.POST.get('members_count')
+        # tech_name = request.POST.get('technologies')
+        # technologies = Technology.objects.filter(technology_name=tech_name)
+        a = Project(project_name=project_name,
+                    project_description=project_description,
+                    pub_date=pub_date,
+                    creator=creator,
+                    members_count=members_count)
+        # a.technologies.set(technologies)
+        a.save()
+        return redirect('/projects')
+    else:
+        technology_list = Technology.objects.order_by('technology_name')
+        form = ProjectForm
+        return render(request, 'projects/add_new.html', {
+            'technology_list': technology_list,
+            'form': form,
+        })
