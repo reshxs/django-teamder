@@ -20,6 +20,7 @@
                 </a>
             </p>
             <form method="post">
+                {% csrf_token %}
                 <input hidden type="text" value="{{notification.id}}" name="notification_id">
                 <input type="submit" value="Принять">
             </form>

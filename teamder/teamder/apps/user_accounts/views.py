@@ -3,9 +3,8 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.views.generic.edit import FormView
-from django.contrib.auth.forms import UserCreationForm
 
-from .models import UserAccount
+from .models import Notification
 from .forms import RegistrationForm
 
 
@@ -35,7 +34,7 @@ def detail(request, user_id):
 
 
 class RegistrationFormView(FormView):
-    form_class = UserCreationForm
+    form_class = RegistrationForm
     success_url = 'configure/'
     template_name = 'registration/registration_form.html'
 
@@ -50,7 +49,21 @@ class RegistrationFormView(FormView):
 @login_required
 def notifications(request):
     if request.method == 'POST':
-        pass
+        notification_id = request.POST.get('notification_id')
+        notification = Notification.objects.get(id=int(notification_id))
+        project = notification.project
+
+        if len(project.members.all()) < project.members_count:
+            project.members.add(notification.sender)
+            user_account = notification.user.useracount
+            user_account.current_project = project
+            user_account.projects.add(project)
+            user_account.save()
+            project.save()
+            notification.delete()
+        else:
+            HttpResponse("Лимит участников превышен!")
+
     notifications_list = request.user.notifications.all()
     return render(request, 'user_accounts/notifications.html', {'notifications_list': notifications_list})
 

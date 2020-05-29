@@ -38,20 +38,6 @@ class UserAccount(models.Model):
         ua.user_projects.add(instance)
         ua.save()
 
-    # временно не рабочий метод =(
-    @receiver(post_save, sender=Project)
-    def update_members_projects(sender, instance, created, **kwargs):
-        for member in instance.members.all():
-            m = member.useraccount
-            m.user_projects.add(instance)
-
-            if instance.is_done:
-                m.current_project = None
-            else:
-                m.current_project = instance
-
-            m.save()
-
     def is_busy(self):
         return self.user_current_project is not None
 

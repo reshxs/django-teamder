@@ -10,5 +10,4 @@ urlpatterns = [
     path('configure/', views.configure, name='configure'),
     path('register/configure/', views.reg_configure, name='register_configure'),
     path('detail/<int:user_id>/', views.detail, name='detail'),
-    path('detail/<int:user_id>/conf', views.configure, name='configure')
 ]

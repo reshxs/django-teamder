@@ -53,7 +53,7 @@
     <br><br>
     <div class="row">
         {% if user.id == current_user.id %}
-            <h2 class="col-3" align="left"><a href ="{% url 'user_accounts:configure' user.id %}"><button class="btn btn-primary" style="border-radius: 50px; float: right;">Редактировать</button></a></h2>
+            <h2 class="col-3" align="left"><a href ="{% url 'user_accounts:configure' %}"><button class="btn btn-primary" style="border-radius: 50px; float: right;">Редактировать</button></a></h2>
         {% endif %}
     </div>
 </div>
