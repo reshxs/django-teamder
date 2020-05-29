@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %} Уведомления {% endblock %}
+
+{% block content %}
+
+<h1>Уведомления</h1>
+
+{% if notifications_list %}
+    <ul>
+    {% for notification in notifications_list %}
+        <li>
+            <p>
+                Пользователь
+                <a href="{% url 'user_accounts:detail' notification.sender.id %}">
+                {{notification.sender.first_name}} {{notification.sender.last_name}}
+                </a>
+                хочет присоедениться к вашему проекту
+                <a href="{% url 'projects:detail' notification.project.id %}">
+                    {{notification.project}}
+                </a>
+            </p>
+            <form method="post">
+                <input hidden type="text" value="{{notification.id}}" name="notification_id">
+                <input type="submit" value="Принять">
+            </form>
+        </li>
+    {% endfor %}
+    </ul>
+{% else %}
+<p>Вам пока не пришло ни одного уведомления.</p>
+{% endif %}
+
+{% endblock %}

@@ -2,6 +2,8 @@ from django.http import Http404, HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
+from django.views.generic.edit import FormView
+from django.contrib.auth.forms import UserCreationForm
 
 from .models import UserAccount
 from .forms import RegistrationForm
@@ -32,33 +34,56 @@ def detail(request, user_id):
     })
 
 
-def registration(request):
-    if request.method == "POST":
-        username = request.POST.get('username')
-        first_name = request.POST.get('first_name')
-        last_name = request.POST.get('last_name')
-        email = request.POST.get('email')
-        password = request.POST.get('password')
-        bio = request.POST.get('bio')
+class RegistrationFormView(FormView):
+    form_class = UserCreationForm
+    success_url = 'configure/'
+    template_name = 'registration/registration_form.html'
 
-        user = User(
-            username=username,
-            first_name=first_name,
-            last_name=last_name,
-            email=email,
-            password=password
-        )
-        user.save()
-        useraccount = user.useraccount
-        useraccount.user_bio = bio
-        useraccount.save()
-        return redirect("/")
-    else:
-        form = RegistrationForm
-        return render(request, 'registration/registration_form.html', {'form': form})
+    def form_valid(self, form):
+        form.save()
+        return super(RegistrationFormView, self).form_valid(form)
+
+    def form_invalid(self, form):
+        return super(RegistrationFormView, self).form_invalid(form)
 
 
 @login_required
-def configure(request, user_id):
-    # Сделать вьюшку для редактирования профиля
-    return HttpResponse('Тут вы смодете редактировать ваш профиль!')
+def notifications(request):
+    if request.method == 'POST':
+        pass
+    notifications_list = request.user.notifications.all()
+    return render(request, 'user_accounts/notifications.html', {'notifications_list': notifications_list})
+
+
+@login_required
+def configure(request):
+    user = request.user
+    user_account = user.useraccount
+
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        if username is not None:
+            user.username = username
+
+        first_name = request.POST.get('first_name')
+        if first_name is not None:
+            user.first_name = first_name
+
+        last_name = request.POST.get('last_name')
+        if last_name is not None:
+            user.last_name = last_name
+
+        email = request.POST.get('email')
+        if email is not None:
+            user.email = email
+
+        user_account.bio = request.POST.get('bio')
+        user.save()
+        return redirect("/")
+
+    else:
+        return render(request, 'user_accounts/configurate.html', {'user_account': user_account})
+
+
+def reg_configure(request):
+    return HttpResponse('Создание аккаунта')

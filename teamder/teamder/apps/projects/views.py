@@ -6,6 +6,7 @@ from django.utils import timezone
 
 from .models import Project, Technology
 from .forms import ProjectForm
+from user_accounts.models import Notification
 
 
 def get_by_tech(parameter):
@@ -48,14 +49,22 @@ def index(request):
 @login_required
 def detail(request, project_id):
     try:
-        a = Project.objects.get(id=project_id)
+        project = Project.objects.get(id=project_id)
     except:
         raise Http404("Проект не найден!")
 
-    member_list = a.members.all()
-    technology_list = a.technologies.all()
+    if request.method == 'POST':
+        notification = Notification()
+        notification.project = project
+        notification.sender = request.user
+        notification.recipient = project.creator
+        notification.pub_date = timezone.now()
+        notification.save()
+
+    member_list = project.members.all()
+    technology_list = project.technologies.all()
     return render(request, 'projects/detail.html', {
-        'project': a,
+        'project': project,
         'member_list': member_list,
         'technology_list': technology_list,
     })

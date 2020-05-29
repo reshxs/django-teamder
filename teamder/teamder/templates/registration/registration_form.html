@@ -7,9 +7,9 @@
 <form method="POST">
     {% csrf_token %}
     <table>
-        {{form}}
+        {{form.as_p}}
     </table>
-    <input type="submit" value="Соззать аккаунт!">
+    <input type="submit" value="Создать аккаунт!">
 </form>
 
 {% endblock %}

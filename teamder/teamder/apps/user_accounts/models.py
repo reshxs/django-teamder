@@ -61,3 +61,15 @@ class UserAccount(models.Model):
     class Meta:
         verbose_name = 'Аккаунт'
         verbose_name_plural = 'Аккаунты'
+
+
+class Notification(models.Model):
+    sender = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, related_name='sent_notifications')
+    recipient = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, related_name='notifications')
+    project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name='notifications')
+    pub_date = models.DateTimeField('Время отправки')
+    is_read = models.BooleanField('Прочитано', default=False)
+
+    class Meta:
+        verbose_name = 'Уведомление'
+        verbose_name_plural = 'Уведомления'
