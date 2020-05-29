@@ -3,47 +3,58 @@
 {% block title %} {{user.user.username}} {% endblock %}
 
 {% block content %}
-
+<div class="container">
+    <div class="row">
     {% if current_user %}
-
-        <h1>{{current_user.username}}</h1>
-            {% if user.id == current_user.id %}
-                <p>Это ваш профиль</p>
-                <a href ="{% url 'user_accounts:configure' user.id %}">Редактировать</a>
-            {% endif %}
-        <h3>Информация:</h3>
-        <p>
-            {{current_user.first_name}} {{current_user.last_name}}
+        <h2 class="col-5">{{current_user.username}}</h2>
+    </div>
+    <br>
+    <div class="row">
+        <h5 class="col-5">Информация:</h5>
+    </div>
+    <div class="row">
+        <h5 class="col-8">
+            <small>{{current_user.first_name}} {{current_user.last_name}}
             {% if current_user.is_superuser %}
-                (Администратор)
+                (Администратор)</small>
             {% endif %}
-        </p>
-        <p>{{current_user.email}}</p>
-        <p>{{current_user.useraccount.user_bio}}</p>
-
+        </h5>
+        <h5 class="col-8"><small>{{current_user.email}}</small></h5>
+        <h5 class="col-5"><small>{{current_user.useraccount.user_bio}}</small></h5>
+    </div>
+    <br>
+    <div class="row col-5">
         {% if user_current_project %}
-            <h3>Сейчас {{current_user.first_name}} работает над проектом:</h3>
-            <a href="{% url 'projects:detail' user_current_project.id%}">{{user_current_project.project_name}}</a>
+            <h5>Сейчас {{current_user.first_name}} работает над проектом:
+                <a href="{% url 'projects:detail' user_current_project.id%}" style="text-decoration: none"><small>{{user_current_project.project_name}}</small></a></h5>
         {% else %}
-            <h3>Сейчас {{current_user.first_name}} ни чем не занимается</h3>
+            <h5>Сейчас {{current_user.first_name}} ни чем не занимается</h5>
         {% endif %}
-
+    </div>
+    <br>
+    <div class="row col-4">
         {% if user_projects %}
-            <h3>Проекты:</h3>
-            <p>Всего проектов: {{user_projects_count}}</p>
+            <h5>Прошлые проекты:&nbsp;&nbsp;&nbsp;</h5>
+        <h5><small>Всего проектов: {{user_projects_count}}</small></h5>
             <ul>
                 {% for project in user_projects %}
                     <li>
-                        <a href="{% url 'projects:detail' project.id%}">{{project.project_name}}</a>
+                        <a href="{% url 'projects:detail' project.id%}" style="text-decoration: none">{{project.project_name}}</a>
                     </li>
                 {% endfor %}
             </ul>
         {% else %}
-            <h3>{{current_user.first_name}} не работал ни с одним проектом</h3>
+            <h5>{{current_user.first_name}} не работал ни с одним проектом</h5>
         {% endif %}
-
+    </div>
     {% else %}
-        <h1>Пользователь не найден!</h1>
+        <h5>Пользователь не найден!</h5>
     {% endif %}
-
+    <br><br>
+    <div class="row">
+        {% if user.id == current_user.id %}
+            <h2 class="col-3" align="left"><a href ="{% url 'user_accounts:configure' user.id %}"><button class="btn btn-primary" style="border-radius: 50px; float: right;">Редактировать</button></a></h2>
+        {% endif %}
+    </div>
+</div>
 {% endblock %}

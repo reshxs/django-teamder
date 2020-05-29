@@ -8,15 +8,16 @@
     <div class="container">
         <div class="row">
         {% if project %}
-            <h2>{{project.project_name}}</h2>
+            <h2 class="col-5">{{project.project_name}}</h2>
         </div>
         <br><br>
         <div class="row">
-            <h5>Автор &nbsp;&nbsp;&nbsp;&nbsp;</h5>
-            <a href="{% url 'user_accounts:detail' project.creator.id %}">{{project.creator.first_name}} {{project.creator.last_name}}</a>
-            <h3>{{project.project_description}}</h3>
+            <h5 class="col-5">Автор: &nbsp;&nbsp;&nbsp;<a href="{% url 'user_accounts:detail' project.creator.id %}"><small>{{project.creator.first_name}} {{project.creator.last_name}}</small></a></h5>
         </div>
         <div class="row">
+            <h5 class="col-5">Описание проекта:&nbsp;&nbsp;&nbsp; <small>{{project.project_description}}</small></h5>
+        </div>
+        <div class="row col-5">
             <h5>Используемые технологии: </h5>
             {% if technology_list %}
                 <ul>
@@ -28,10 +29,7 @@
                 <p>Не указана ни одна технология</p>
             {% endif %}
         </div>
-        <div class="row">
-            <h5>Описание проекта:</h5>
-        </div>
-        <div class="row">
+        <div class="row col-5">
             <h5>Другие участники:</h5>
             {% if member_list %}
                 <ul>
@@ -43,13 +41,13 @@
                 <p>К этому проекту еще ни кто не присоединился. Вы можете стать первым!</p>
             {% endif %}
         </div>
-        <div class="row">
+        <div class="row col-5">
             <p>Дата публикации - {{project.pub_date}}</p>
         </div>
         {% endif %}
         <br><br>
         <div class="row">
-            <h2 class="col-lg-5" align="center"><a href=""><button class="btn btn-primary" style="border-radius: 50px;">Присоединиться</button></a></h2>
+            <h2 class="col-5" align="center"><a href=""><button class="btn btn-primary" style="border-radius: 50px;">Присоединиться</button></a></h2>
         </div>
     {% endblock %}
     </div>
