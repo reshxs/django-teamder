@@ -12,8 +12,7 @@
         </div>
         <br><br>
         <div class="row">
-            <h5 class="col-5">Автор: &nbsp;&nbsp;&nbsp;
-                <a href="{% url 'user_accounts:detail' project.creator.id %}"><small>{{project.creator.first_name}} {{project.creator.last_name}}</small></a></h5>
+            <h5 class="col-5">Автор: &nbsp;&nbsp;&nbsp;<a href="{% url 'user_accounts:detail' project.creator.id %}"><small>{{project.creator.first_name}} {{project.creator.last_name}}</small></a></h5>
         </div>
         <div class="row">
             <h5 class="col-5">Описание проекта:&nbsp;&nbsp;&nbsp; <small>{{project.project_description}}</small></h5>

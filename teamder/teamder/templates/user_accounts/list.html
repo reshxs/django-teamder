@@ -3,23 +3,27 @@
 {% block title %} Пользователи {% endblock %}
 
 {% block content %}
+<div class="container" >
+    <h2>Пользователи</h2>
 
-    <h1>Пользователи</h1>
+    <br>
 
-    <form method="get">
-        <label for="search_name">Поиск: </label>
-        <input id="search_name" type="text" name="name" value="">
-        <input type="submit" value="OK">
+    <form method="get" class="form-inline">
+        <div class="form-group mx-sm-3 mb-2">
+            <label for="search_name" class="sr-only">Имя пользователя</label>
+            <input id="search_name" type="text" name="name" value="" class="form-control" placeholder="Имя пользователя">
+        </div>
+        <button type="submit" class="btn btn-outline-secondary mb-2">Поиск</button>
     </form>
 
     {% if user_list %}
-        <ul>
+        <ul style="list-style-type: none;">
         {% for current_user in user_list %}
-            <li> <a href = "{% url 'user_accounts:detail' current_user.id %}"> {{ current_user.username }} </a> </li>
+            <li> <a href = "{% url 'user_accounts:detail' current_user.id %}" style="text-decoration: none"> {{ current_user.username }} </a> </li>
         {% endfor %}
         </ul>
     {% else %}
         Пользователи не найдены
     {% endif %}
-
+</div>
 {% endblock %}
