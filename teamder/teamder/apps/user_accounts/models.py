@@ -38,6 +38,7 @@ class UserAccount(models.Model):
         ua.user_projects.add(instance)
         ua.save()
 
+    @property
     def is_busy(self):
         return self.user_current_project is not None
 

@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.views.generic.edit import FormView
 
 from .models import Notification
-from .forms import RegistrationForm
+from .forms import RegistrationForm, ConfigurationForm
 
 
 def index(request):
@@ -47,56 +47,32 @@ class RegistrationFormView(FormView):
 
 
 @login_required
+def configure(request):
+    if request.method == 'POST':
+        pass
+    else:
+        form = ConfigurationForm
+        return render(request, 'user_accounts/configurate.html', {'form': form})
+
+
+@login_required
 def notifications(request):
     if request.method == 'POST':
         notification_id = request.POST.get('notification_id')
         notification = Notification.objects.get(id=int(notification_id))
         project = notification.project
 
-        if len(project.members.all()) < project.members_count:
-            project.members.add(notification.sender)
-            user_account = notification.user.useracount
-            user_account.current_project = project
-            user_account.projects.add(project)
-            user_account.save()
-            project.save()
-            notification.delete()
-        else:
-            HttpResponse("Лимит участников превышен!")
+        project.members.add(notification.sender)
+        user_account = notification.sender.useraccount
+        user_account.user_current_project = project
+        user_account.user_projects.add(project)
+        user_account.save()
+        project.save()
+        notification.delete()
 
     notifications_list = request.user.notifications.all()
     return render(request, 'user_accounts/notifications.html', {'notifications_list': notifications_list})
 
 
-@login_required
-def configure(request):
-    user = request.user
-    user_account = user.useraccount
-
-    if request.method == 'POST':
-        username = request.POST.get('username')
-        if username is not None:
-            user.username = username
-
-        first_name = request.POST.get('first_name')
-        if first_name is not None:
-            user.first_name = first_name
-
-        last_name = request.POST.get('last_name')
-        if last_name is not None:
-            user.last_name = last_name
-
-        email = request.POST.get('email')
-        if email is not None:
-            user.email = email
-
-        user_account.bio = request.POST.get('bio')
-        user.save()
-        return redirect("/")
-
-    else:
-        return render(request, 'user_accounts/configurate.html', {'user_account': user_account})
-
-
 def reg_configure(request):
-    return HttpResponse('Создание аккаунта')
+    return HttpResponse('Скоро добавим')
