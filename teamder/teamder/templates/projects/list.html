@@ -4,6 +4,7 @@
 
 {% block content %}
 <div class="container">
+    <div class="row col-8">
         <form method="get">
             <label for="search_name">Название: </label>
             <input id="search_name" type="search" name="name" value="">
@@ -22,28 +23,31 @@
                     <option value="true">Завершен</option>
                     <option value="false">В работе</option>
             </select>
-            <input type="submit" value="OK">
+            <input type="submit" value="OK" class="btn btn-outline-secondary btn-sm">
         </form>
+    </div>
 
         <a href="{% url 'projects:add_new' %}"><button class="btn btn-primary" style="border-radius: 50px; float: right;">Создать Проект</button></a>
 
-
-
-    <br>
+    <br><br>
 
     {% if projects_list %}
         {% for project in projects_list %}
-            <div class="container" style="height: 170px; background-color: #3A7FE7; background: rgba(58, 127, 231, 0.3); border-radius: 25px">
-                <a href="{% url 'projects:detail' project.id %}"><button class="btn btn-default" style=" font-size: 200%; border-radius: 25px"> {{ project.project_name }} </button></a>
-                <br>
-                <h5> Роль: *************</h5>
-                <h5> Необходимые навыки: *****, ******, ****** </h5>
-                <h5> <small>Дата публикации: {{project.pub_date}}</small></h5>
+            <div class="container" style="">
+                <a href="{% url 'projects:detail' project.id %}" style="text-decoration: none"><button class="btn btn-outline-primary btn-block" style=" font-size: 200%; border-radius: 25px; ">
+                    <h3>{{ project.project_name }}</h3>
+                    <br>
+                        <h5> Роль: *************</h5>
+                        <h5> Необходимые навыки: *****, ******, ****** </h5>
+                        <h5> <small>Дата публикации: {{project.pub_date}}</small></h5>
+                </button></a>
             </div>
             <br>
         {% endfor %}
     {% else %}
         <p>Проекты не найдены</p>
     {% endif %}
+
+
 </div>
 {% endblock %}
