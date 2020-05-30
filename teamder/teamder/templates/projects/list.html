@@ -13,7 +13,7 @@
 
             <div class="form-group mx-sm-3 mb-2">
                 <label for="search_tech"></label>
-                <select id="search_tech" class="form-control" name="tech">
+                <select id="search_tech" class="form-control" name="tech" multiple>
                     <option value="">Выберите технологию</option>
                     {% if technology_list %}
                     {% for tech in technology_list %}

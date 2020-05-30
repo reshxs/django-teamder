@@ -93,4 +93,4 @@ def add_new(request):
 
 @login_required
 def configurate(request, project_id):
-
+    pass
