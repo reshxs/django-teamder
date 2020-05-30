@@ -13,13 +13,13 @@
 
             <div class="form-group mx-sm-3 mb-2">
                 <label for="search_tech"></label>
-                <select id="search_tech" class="form-control" name="tech" multiple>
+                <select id="search_tech" class="form-control" name="tech">
                     <option value="">Выберите технологию</option>
-                    {% if technology_list %}
-                    {% for tech in technology_list %}
-                        <option value="{{tech.technology_name}}">{{tech.technology_name}}</option>
-                    {% endfor %}
-                {% endif %}
+                        {% if technology_list %}
+                            {% for tech in technology_list %}
+                                <option value="{{tech.technology_name}}">{{tech.technology_name}}</option>
+                            {% endfor %}
+                        {% endif %}
                 </select>
             </div>
 

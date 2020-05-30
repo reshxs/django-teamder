@@ -35,6 +35,7 @@
                         {% endif %}
                         <li class="active"><a href="{% url 'projects:index' %}"><button class="btn btn-default">Проекты</button></a></li>
                         <li class="active"><a href="{% url 'user_accounts:index' %}"><button class="btn btn-default">Пользователи</button></a></li>
+                        <li class="active"><a href="{% url 'user_accounts:notifications' %}"><button class="btn btn-default">Уведомления</button></a></li>
                         <li class="active"><a href="{% url 'user_accounts:detail' user.id %}"><button class="btn btn-default">{{ user.get_username }}</button></a></li>
                         <li class="active"><a href="{% url 'logout' %}?next={{request.path}}"><button class="btn btn-outline-secondary" style="border-radius: 50px">Выйти</button></a></li>
                      {% else %}

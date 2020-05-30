@@ -25,8 +25,8 @@
     <br>
     <div class="row col-5">
         {% if user_current_project %}
-            <h5>Сейчас {{current_user.first_name}} работает над проектом:
-                <a href="{% url 'projects:detail' user_current_project.id%}" style="text-decoration: none"><small>{{user_current_project.project_name}}</small></a></h5>
+        <h5>Сейчас {{current_user.first_name}} работает над проектом:
+            <a href="{% url 'projects:detail' user_current_project.id%}" style="text-decoration: none"><small>{{user_current_project.project_name}}</small></a></h5>
         {% else %}
             <h5>Сейчас {{current_user.first_name}} ни чем не занимается</h5>
         {% endif %}
@@ -36,10 +36,10 @@
         {% if user_projects %}
             <h5>Прошлые проекты:&nbsp;&nbsp;&nbsp;</h5>
         <h5><small>Всего проектов: {{user_projects_count}}</small></h5>
-            <ul>
+            <ul style="list-style-type: none;">
                 {% for project in user_projects %}
                     <li>
-                        <a href="{% url 'projects:detail' project.id%}" style="text-decoration: none">{{project.project_name}}</a>
+                        <h6><a href="{% url 'projects:detail' project.id%}" style="text-decoration: none; font-weight: normal">{{project.project_name}}</a></h6>
                     </li>
                 {% endfor %}
             </ul>
