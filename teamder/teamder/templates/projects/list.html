@@ -9,7 +9,7 @@
             <label for="search_name">Название: </label>
             <input id="search_name" type="search" name="name" value="">
             <label for="search_tech">Технология: </label>
-            <select id="search_tech" name="tech">
+            <select id="search_tech" name="tech" multiple>
                 <option value=""></option>
                 {% if technology_list %}
                     {% for tech in technology_list %}

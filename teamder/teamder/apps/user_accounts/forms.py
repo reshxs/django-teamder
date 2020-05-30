@@ -16,9 +16,7 @@ class ConfigurationForm(forms.Form):
     first_name = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'placeholder': 'Имя'}))
     last_name = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'placeholder': 'Фамилия'}))
     email = forms.EmailField(max_length=200, widget=forms.TextInput(attrs={'placeholder': 'email'}))
-    password1 = forms.CharField(label='Пароль', max_length=200, widget=forms.PasswordInput)
-    password2 = forms.CharField(label='Повтрите пароль', max_length=200, widget=forms.PasswordInput)
-    bio = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'О себе'}))
+    bio = forms.CharField(widget=forms.Textarea(attrs={'placeholder': 'О себе'}))
 
     class Meta:
-        fields = ('username', 'first_name', 'last_name', 'email', 'bio', 'password1', 'password2')
+        fields = ('username', 'first_name', 'last_name', 'email', 'bio')

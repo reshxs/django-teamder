@@ -1,7 +1,6 @@
 from django.http import Http404
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from django.views import View
 from django.utils import timezone
 
 from .models import Project, Technology
@@ -28,12 +27,10 @@ def get_by_status(query, parameter):
 
 
 def index(request):
-    # Собираем данные из request
     tech = request.GET.get('tech')
     name = request.GET.get('name')
     status = request.GET.get('done')
 
-    # Фильтруем список
     projects_list = get_by_tech(tech)
     projects_list = get_by_name(projects_list, name)
     projects_list = get_by_status(projects_list, status)
@@ -42,7 +39,7 @@ def index(request):
     technology_list = Technology.objects.order_by('technology_name')
     return render(request, 'projects/list.html', {
         'projects_list': projects_list,
-        'technology_list': technology_list
+        'technology_list': technology_list,
     })
 
 
@@ -78,14 +75,11 @@ def add_new(request):
         pub_date = timezone.now()
         creator = request.user
         members_count = request.POST.get('members_count')
-        # tech_name = request.POST.get('technologies')
-        # technologies = Technology.objects.filter(technology_name=tech_name)
         a = Project(project_name=project_name,
                     project_description=project_description,
                     pub_date=pub_date,
                     creator=creator,
                     members_count=members_count)
-        # a.technologies.set(technologies)
         a.save()
         return redirect('/projects')
     else:
@@ -95,3 +89,8 @@ def add_new(request):
             'technology_list': technology_list,
             'form': form,
         })
+
+
+@login_required
+def configurate(request, project_id):
+
