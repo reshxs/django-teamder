@@ -29,10 +29,6 @@
                 <p>Не указана ни одна технология</p>
             {% endif %}
         </div>
-        <form method="post">
-            {% csrf_token %}
-            <input type="submit" value="Подать заявку на участие">
-        </form>
         <div class="row col-5">
             <h5>Участники:</h5>
             {% if member_list %}
@@ -50,9 +46,10 @@
         </div>
         {% endif %}
         <br><br>
-        <div class="row">
-            <h2 class="col-5" align="center"><a href=""><button class="btn btn-primary" style="border-radius: 50px;">Присоединиться</button></a></h2>
-        </div>
+            <form method="post">
+                {% csrf_token %}
+                <input type="submit" class="btn btn-primary" style="border-radius: 50px;" value="Подать заявку на участие">
+            </form>
     {% endblock %}
     </div>
 </div>
