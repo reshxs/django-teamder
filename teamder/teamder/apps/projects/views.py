@@ -1,6 +1,7 @@
 from django.http import Http404
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
+from django.urls import reverse
 from django.utils import timezone
 
 from .models import Project, Technology
@@ -75,12 +76,21 @@ def add_new(request):
         pub_date = timezone.now()
         creator = request.user
         members_count = request.POST.get('members_count')
+        technologies = request.POST.getlist('technologies')
+
         a = Project(project_name=project_name,
                     project_description=project_description,
                     pub_date=pub_date,
                     creator=creator,
                     members_count=members_count)
         a.save()
+
+        for tech in technologies:
+            technology = Technology.objects.get(id=int(tech) + 1)
+            if technology is not None:
+                a.technologies.add(technology)
+        a.save()
+
         return redirect('/projects')
     else:
         technology_list = Technology.objects.order_by('technology_name')
@@ -88,9 +98,40 @@ def add_new(request):
         return render(request, 'projects/add_new.html', {
             'technology_list': technology_list,
             'form': form,
+            'title': 'Создать',
         })
 
 
 @login_required
 def configurate(request, project_id):
-    pass
+    project = Project.objects.get(id=project_id)
+    if request.method == "POST":
+        project_name = request.POST.get('project_name')
+        project_description = request.POST.get('project_description')
+        members_count = request.POST.get('members_count')
+        technologies = request.POST.getlist('technologies')
+
+        project.project_name = project_name
+        project.project_description = project_description
+        project.members_count = members_count
+
+        for tech in technologies:
+            technology = Technology.objects.get(id=int(tech) + 1)
+            if technology is not None:
+                project.technologies.add(technology)
+        project.save()
+
+        return redirect(reverse('projects:detail', args=[project.id]))
+    else:
+        technology_list = Technology.objects.order_by('technology_name')
+        data = {
+            'project_name': project.project_name,
+            'project_description': project.project_description,
+            'members_count': project.members_count
+        }
+        form = ProjectForm(data)
+        return render(request, 'projects/add_new.html', {
+            'technology_list': technology_list,
+            'form': form,
+            'title': 'Редактировать'
+        })

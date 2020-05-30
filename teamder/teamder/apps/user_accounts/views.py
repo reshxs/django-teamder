@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.views.generic.edit import FormView
+from django.urls import reverse
 
 from .models import Notification
 from .forms import RegistrationForm, ConfigurationForm
@@ -80,12 +81,7 @@ def configure(request):
         configure_user_param(user, 'email', email)
         configure_user_param(user, 'bio', bio)
         user.save()
-        return render(request, 'user_accounts/detail.html', {
-            'current_user': user,
-            'user_projects': user.useraccount.user_projects.all(),
-            'user_projects_count': user.useraccount.user_projects.count(),
-            'user_current_project': user.useraccount.user_current_project,
-        })
+        return redirect(reverse('user_accounts:detail', args=[user.id]))
 
     else:
         data = {

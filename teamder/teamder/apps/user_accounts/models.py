@@ -24,6 +24,7 @@ class UserAccount(models.Model):
 
     @receiver(post_save, sender=get_user_model())
     def save_user_account(sender, instance, created, **kwargs):
+        instance.useraccount.user_current_project = instance.useraccount.user_projects.latest('pub_date')
         instance.useraccount.save()
 
     @receiver(post_save, sender=Project)
