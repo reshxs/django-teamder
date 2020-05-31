@@ -6,62 +6,31 @@
 <div class="container">
     <h2>Создание проекта</h2>
     <br>
-    <!--<form method="post">
-        {% csrf_token %}
-        <table>
-            {{ form }}
-        </table>
-        <br>
-        <input type="submit" value="Сохранить" class="btn btn-primary" style="border-radius: 50px">
-    </form> -->
     <form method="post">
         {% csrf_token %}
         <div class="form-row">
             <div class="col">
-                <label for=" {{ form.project_name }} "> Название проекта</label>
-                <input type="text" class="form-control" placeholder="Название проекта" id=" {{ form.project_name }} ">
+                <label for="{{ id_project_name }}"></label>
+                {{ form.project_name }}
             </div>
 
             <div class="col">
-                <label for="{{ form.members_count }}">Количество участников</label>
-                <input type="number" class="form-control" placeholder="Количество участников" id="{{ form.members_count }}">
+                <label for="{{ id_members_count }}"></label>
+                 {{ form.members_count }}
             </div>
         </div>
 
         <div class="form-group">
-            <label for="{{ form.project_description }}">Описание проекта</label>
-            <textarea class="form-control" placeholder="Описание проекта" rows="3"  id="{{ form.project_description }}"></textarea>
+            <label for="{{ id_project_description }}"></label>
+            {{ form.project_description }}
+        </div>
+
+        <div class="form-group">
+            <label for="{{ id_technologies }}"></label>
+            {{ form.technologies }}
         </div>
         
         <input type="submit" value="Создать проект" class="btn btn-primary" style="border-radius: 50px">
     </form>
-
-
-
-
-
-
-
-
-
-
-<!--<h2>Создание проекта</h2>
-    <br><br>
-    <form method="post">
-        <div class="form-group">
-            <label for="exampleFormControlInput1">Название проекта</label>
-            <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="Название проекта">
-        </div>
-    <br>
-        <div class="form-group">
-            <label for="exampleFormControlTextarea1">Описание проекта</label>
-            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" ></textarea>
-        </div>
-    <br>
-        <input type="submit" value="Создать проект" class="btn btn-primary" style="border-radius: 50px">
-    </form>
--->
-
-
 </div>
 {% endblock %}
