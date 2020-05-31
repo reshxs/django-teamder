@@ -5,7 +5,10 @@ def index(request):
     if request.user.is_authenticated:
         user = request.user
         current_project = user.useraccount.user_current_project
-        current_project_members = current_project.members.all()
+        if current_project is not None:
+            current_project_members = current_project.members.all()
+        else:
+            current_project_members = None
         notifications_list = user.notifications.order_by('-pub_date')[:5]
         unread_notifications = len(user.notifications.filter(is_read=True))
     else:
