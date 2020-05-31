@@ -2,35 +2,29 @@
 {% block title %} Уведомления {% endblock %}
 
 {% block content %}
-
-<h1>Уведомления</h1>
-
+<div class="container">
+<h2>Уведомления</h2>
+<br>
 {% if notifications_list %}
-    <ul>
+    <ul style="list-style-type: none;">
     {% for notification in notifications_list %}
         <li>
-            <p>
-                Пользователь
-                <a href="{% url 'user_accounts:detail' notification.sender.id %}">
-                {{notification.sender.first_name}} {{notification.sender.last_name}}
-                </a>
+                <h5>Пользователь
+                <a href="{% url 'user_accounts:detail' notification.sender.id %}" style="text-decoration: none">{{notification.sender.first_name}} {{notification.sender.last_name}}</a>
                 хочет присоедениться к вашему проекту
-                <a href="{% url 'projects:detail' notification.project.id %}">
-                    {{notification.project}}
-                </a>
-            </p>
+                <a href="{% url 'projects:detail' notification.project.id %}" style="text-decoration: none">{{notification.project}}</a></h5>
             <form method="post">
                 {% csrf_token %}
                 <input hidden type="text" value="{{notification.id}}" name="notification_id">
                 <input id="accept" type="checkbox" name="accept">
                 <label for="accept">Принять</label>
-                <input type="submit" value="ОК">
+                <input type="submit" value="ОК" class="btn btn-outline-secondary btn-sm" style="border-radius: 50px">
             </form>
         </li>
     {% endfor %}
     </ul>
 {% else %}
-<p>Вам пока не пришло ни одного уведомления.</p>
+<h5>Вам пока не пришло ни одного уведомления.</h5>
 {% endif %}
-
+</div>
 {% endblock %}
