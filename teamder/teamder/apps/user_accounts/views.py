@@ -12,7 +12,7 @@ from .forms import RegistrationForm, ConfigurationForm
 def index(request):
     name = request.GET.get('name')
     name = name if name is not None else ''
-    user_list = User.objects.filter(username__icontains=name)
+    user_list = request.user.useraccount.user_friends.filter(username__icontains=name)
     return render(request, 'user_accounts/list.html', {'user_list': user_list, 'sorted_name': name})
 
 
@@ -103,9 +103,11 @@ def notifications(request):
         project = notification.project
 
         project.members.add(notification.sender)
+        project.creator.useraccount.user_friends.add(notification.sender)
         user_account = notification.sender.useraccount
         user_account.user_current_project = project
         user_account.user_projects.add(project)
+        user_account.user_friends.add(project.sender)
         user_account.save()
         project.save()
         notification.delete()

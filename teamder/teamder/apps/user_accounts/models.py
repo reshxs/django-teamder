@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth import get_user_model
-from django.db.models.signals import post_save
+from django.db.models.signals import post_save, m2m_changed
 from django.dispatch import receiver
 
 from projects.models import Project
@@ -10,6 +10,7 @@ class UserAccount(models.Model):
     user = models.OneToOneField(get_user_model(), on_delete=models.CASCADE, default=0, primary_key=True)
     user_bio = models.TextField("Описание профиля")
     user_projects = models.ManyToManyField(Project, 'Проекты', blank=True)
+    user_friends = models.ManyToManyField(get_user_model(), related_name="friends", blank=True)
     user_current_project = models.ForeignKey(
         Project,
         on_delete=models.SET_NULL,
