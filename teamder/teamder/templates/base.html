@@ -28,16 +28,25 @@
             </div>
 
             <div>
-                <ul class="nav navbar-nav">
+                <ul class="nav navbar-nav mr-auto">
                      {% if user.is_authenticated %}
                         {% if user.is_superuser %}
                             <li class="active"><a href="/admin"><button class="btn btn-default">Админка</button></a></li>
                         {% endif %}
                         <li class="active"><a href="{% url 'projects:index' %}"><button class="btn btn-default">Проекты</button></a></li>
                         <li class="active"><a href="{% url 'user_accounts:index' %}"><button class="btn btn-default">Пользователи</button></a></li>
-                        <li class="active"><a href="{% url 'user_accounts:notifications' %}"><button class="btn btn-default">Уведомления</button></a></li>
+                        <li class="nav-item dropdown active">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ user.get_username }}</a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{% url 'user_accounts:detail' user.id %}">Мой профиль</a>
+                                    <a class="dropdown-item" href="{% url 'user_accounts:notifications' %}">Уведомления</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="{% url 'logout' %}?next={{request.path}}">Выйти</a>
+                                </div>
+                        </li>
+                        <!--<li class="active"><a href="{% url 'user_accounts:notifications' %}"><button class="btn btn-default">Уведомления</button></a></li>
                         <li class="active"><a href="{% url 'user_accounts:detail' user.id %}"><button class="btn btn-default">{{ user.get_username }}</button></a></li>
-                        <li class="active"><a href="{% url 'logout' %}?next={{request.path}}"><button class="btn btn-outline-secondary" style="border-radius: 50px">Выйти</button></a></li>
+                        <li class="active"><a href="{% url 'logout' %}?next={{request.path}}"><button class="btn btn-outline-secondary" style="border-radius: 50px">Выйти</button></a></li>-->
                      {% else %}
                     <li class="active"><a href="{%  url 'user_accounts:register' %}"><button class="btn btn-primary" style="border-radius: 50px">Зарегистрироваться</button></a></li>
                     <li class="active"><a href="{% url 'login' %}?next={{request.path}}"><button class="btn btn-outline-secondary" style="border-radius: 50px">Войти</button></a></li>
@@ -50,6 +59,7 @@
     {% endblock %}
 
     <br><br><br><br><br>
+
     {% block content %}
 
     {% if user.is_authenticated %}
