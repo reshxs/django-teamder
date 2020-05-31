@@ -33,9 +33,9 @@
                         {% if user.is_superuser %}
                             <li class="active"><a href="/admin"><button class="btn btn-default">Админка</button></a></li>
                         {% endif %}
-                        <li class="active"><a href="{% url 'projects:index' %}"><button class="btn btn-default">Проекты</button></a></li>
-                        <li class="active"><a href="{% url 'user_accounts:index' %}"><button class="btn btn-default">Пользователи</button></a></li>
-                        <li class="nav-item dropdown active">
+                        <li class="active"><a href="{% url 'projects:index' %}"><button class="btn btn-default" style="border-radius: 50px">Проекты</button></a></li>
+                        <li class="active"><a href="{% url 'user_accounts:index' %}"><button class="btn btn-default" style="border-radius: 50px">Пользователи</button></a></li>
+                        <!--<li class="nav-item dropdown active">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ user.get_username }}</a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{% url 'user_accounts:detail' user.id %}">Мой профиль</a>
@@ -43,10 +43,10 @@
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item" href="{% url 'logout' %}?next={{request.path}}">Выйти</a>
                                 </div>
-                        </li>
-                        <!--<li class="active"><a href="{% url 'user_accounts:notifications' %}"><button class="btn btn-default">Уведомления</button></a></li>
-                        <li class="active"><a href="{% url 'user_accounts:detail' user.id %}"><button class="btn btn-default">{{ user.get_username }}</button></a></li>
-                        <li class="active"><a href="{% url 'logout' %}?next={{request.path}}"><button class="btn btn-outline-secondary" style="border-radius: 50px">Выйти</button></a></li>-->
+                        </li>-->
+                        <li class="active"><a href="{% url 'user_accounts:notifications' %}"><button class="btn btn-default" style="border-radius: 50px">Уведомления</button></a></li>
+                        <li class="active"><a href="{% url 'user_accounts:detail' user.id %}"><button class="btn btn-default" style="border-radius: 50px">{{ user.get_username }}</button></a></li>
+                        <li class="active"><a href="{% url 'logout' %}?next={{request.path}}"><button class="btn btn-outline-secondary" style="border-radius: 50px">Выйти</button></a></li>
                      {% else %}
                     <li class="active"><a href="{%  url 'user_accounts:register' %}"><button class="btn btn-primary" style="border-radius: 50px">Зарегистрироваться</button></a></li>
                     <li class="active"><a href="{% url 'login' %}?next={{request.path}}"><button class="btn btn-outline-secondary" style="border-radius: 50px">Войти</button></a></li>
@@ -61,51 +61,45 @@
     <br><br><br><br><br>
 
     {% block content %}
-
+<div class="container">
     {% if user.is_authenticated %}
-    <table align="left" cols="2" cellpadding="50">
-        <tr>
-            <td>
-                {% if current_project != None %}
-                    <h1>Ваш текущий проект</h1>
-                    <a href="{% url 'projects:detail' current_project.id %}">{{current_project.project_name}}</a>
-                    <h3>Ваши напарники: </h3>
-                    <ul>
-                        {% if current_project.creator != user %}
-                        <li><a href="{% url 'user_accounts:detail' current_project.creator.id%}">
-                            {{current_project.creator.first_name}} {{current_project.creator.last_name}}
-                        </a></li>
-                        {% endif %}
-                        {%if members %}
-                            {% for member in members %}
-                            <li><a href="{% url 'user_accounts:detail' member.id %}">
-                                {{member.first_name}} {{member.last_name}}
-                            </a></li>
-                            {% endfor %}
-                        {% endif %}
-                    </ul>
-                {% else %}
-                    <h1>Вы сейчс ни чем не занимаетесь</h1>
-                {% endif %}
-            </td>
-            <td>
-                {% if notifications_list%}
-                    <h1>Последние уведомления</h1>
-                    <ul>
-                    {% for note in notifications_list %}
-                        <li><a href="{% url 'user_accounts:notifications' %}">
-                            {{note.sender.first_name}} {{note.sender.last_name}}
-                        </a></li>
+        {% if user.is_authenticated %}
+        <h2>Ваш текущий проект: <small><a href="{% url 'projects:detail' current_project.id %}" style="text-decoration: none">{{current_project.project_name}}</a></small></h2>
+    <br>
+            <h5>Ваши напарники: </h5>
+                <ul style="list-style-type: none;">
+                    {% if current_project.creator != user %}
+                    <li><a href="{% url 'user_accounts:detail' current_project.creator.id%}" style="text-decoration: none">
+                        {{current_project.creator.first_name}} {{current_project.creator.last_name}}
+                    </a></li>
+                    {% endif %}
+                    {%if members %}
+                    {% for member in members %}
+                    <li><a href="{% url 'user_accounts:detail' member.id %}" style="text-decoration: none">
+                        {{member.first_name}} {{member.last_name}}
+                    </a></li>
                     {% endfor %}
-                    </ul>
-                {% else %}
-                    <h1>Нет новых уведомлений</h1>
-                {% endif %}
-            </td>
-        </tr>
-    </table>
+                    {% endif %}
+                </ul>
+        {% else %}
+        <h2>У вас сейчас нет активных проектов, пора найти новый!</h2>
+        {% endif %}
+        <!--{% if notifications_list%}
+        <h2>Последние уведомления :</h2>
+        <ul>
+            {% for note in notifications_list %}
+            <li><a href="{% url 'user_accounts:notifications' %}">
+                {{note.sender.first_name}} {{note.sender.last_name}}
+            </a></li>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <h2>Нет новых уведомлений</h2>
+        {% endif %}-->
+
+
     {% else %}
-     <div class="container">
+
       <div class="row">
         <div class="col-lg-5">
           <h1 align="left">Лучшее решение для поиска команды</h1>
@@ -121,6 +115,7 @@
       </div>
     </div>
     {% endif %}
+
     {% endblock %}
 </body>
 </html>
