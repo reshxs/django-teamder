@@ -56,7 +56,7 @@
     <table align="left" cols="2" cellpadding="50">
         <tr>
             <td>
-                {% if current_project %}
+                {% if current_project != None %}
                     <h1>Ваш текущий проект</h1>
                     <a href="{% url 'projects:detail' current_project.id %}">{{current_project.project_name}}</a>
                     <h3>Ваши напарники: </h3>
