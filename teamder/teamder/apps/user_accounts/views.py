@@ -110,5 +110,9 @@ def notifications(request):
         project.save()
         notification.delete()
 
-    notifications_list = request.user.notifications.all()
+    notifications_list = request.user.notifications.order_by('-pub_date')
+    for notification in notifications_list:
+        if not notification.is_read:
+            notification.is_read = True
+            notification.save()
     return render(request, 'user_accounts/notifications.html', {'notifications_list': notifications_list})

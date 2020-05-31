@@ -45,11 +45,13 @@
             <p>Дата публикации - {{project.pub_date}}</p>
         </div>
         {% endif %}
+        {% if not project.is_done and user.useraccount.user_current_project == None %}
         <br><br>
             <form method="post">
                 {% csrf_token %}
                 <input type="submit" class="btn btn-primary" style="border-radius: 50px;" value="Подать заявку на участие">
             </form>
+        {% endif %}
     {% endblock %}
     </div>
 </div>

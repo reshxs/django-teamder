@@ -53,7 +53,47 @@
     {% block content %}
 
     {% if user.is_authenticated %}
-
+    <table align="left" cols="2" cellpadding="50">
+        <tr>
+            <td>
+                {% if current_project %}
+                    <h1>Ваш текущий проект</h1>
+                    <a href="{% url 'projects:detail' current_project.id %}">{{current_project.project_name}}</a>
+                    <h3>Ваши напарники: </h3>
+                    <ul>
+                        {% if current_project.creator != user %}
+                        <li><a href="{% url 'user_accounts:detail' current_project.creator.id%}">
+                            {{current_project.creator.first_name}} {{current_project.creator.last_name}}
+                        </a></li>
+                        {% endif %}
+                        {%if members %}
+                            {% for member in members %}
+                            <li><a href="{% url 'user_accounts:detail' member.id %}">
+                                {{member.first_name}} {{member.last_name}}
+                            </a></li>
+                            {% endfor %}
+                        {% endif %}
+                    </ul>
+                {% else %}
+                    <h1>Вы сейчс ни чем не занимаетесь</h1>
+                {% endif %}
+            </td>
+            <td>
+                {% if notifications_list%}
+                    <h1>Последние уведомления</h1>
+                    <ul>
+                    {% for note in notifications_list %}
+                        <li><a href="{% url 'user_accounts:notifications' %}">
+                            {{note.sender.first_name}} {{note.sender.last_name}}
+                        </a></li>
+                    {% endfor %}
+                    </ul>
+                {% else %}
+                    <h1>Нет новых уведомлений</h1>
+                {% endif %}
+            </td>
+        </tr>
+    </table>
     {% else %}
      <div class="container">
       <div class="row">
