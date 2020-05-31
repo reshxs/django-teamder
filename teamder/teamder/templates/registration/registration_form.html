@@ -2,14 +2,14 @@
 {% block title %} Регистрация {% endblock %}
 
 {% block content %}
-
-<h1>Регистрация</h1>
-<form method="POST">
-    {% csrf_token %}
-    <table>
-        {{form.as_p}}
-    </table>
-    <input type="submit" value="Создать аккаунт!">
-</form>
-
+<div class="container">
+    <h2>Регистрация</h2>
+    <form method="POST">
+        {% csrf_token %}
+        <table>
+            {{form.as_p}}
+        </table>
+        <input type="submit" value="Создать аккаунт!">
+    </form>
+</div>
 {% endblock %}
