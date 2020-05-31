@@ -1,41 +1,32 @@
 {% extends 'base.html' %}
 
-{% block title %} {{current_user.username}} {% endblock %}
+{% block title %} {{user.user.username}} {% endblock %}
 
 {% block content %}
 <div class="container">
-    <div class="row">
     {% if current_user %}
-        <h2 class="col-5">{{current_user.username}}</h2>
-    </div>
-    <br>
-    <div class="row">
-        <h5 class="col-5">Информация:</h5>
-    </div>
-    <div class="row">
-        <h5 class="col-8">
-            <small>{{current_user.first_name}} {{current_user.last_name}}
+        <h2>{{current_user.username}}</h2>
+    <br/><br>
+        <h5>Информация:</h5>
+        <h5><small>{{current_user.first_name}} {{current_user.last_name}}
             {% if current_user.is_superuser %}
-                (Администратор)</small>
+            (Администратор)</small></h5>
             {% endif %}
-        </h5>
-        <h5 class="col-8"><small>{{current_user.email}}</small></h5>
+        <h5><small>{{current_user.email}}</small></h5>
+    <div class="row">
         <h5 class="col-5"><small>{{current_user.useraccount.user_bio}}</small></h5>
     </div>
     <br>
-    <div class="row col-5">
         {% if user_current_project %}
         <h5>Сейчас {{current_user.first_name}} работает над проектом:
             <a href="{% url 'projects:detail' user_current_project.id%}" style="text-decoration: none"><small>{{user_current_project.project_name}}</small></a></h5>
         {% else %}
             <h5>Сейчас {{current_user.first_name}} ни чем не занимается</h5>
         {% endif %}
-    </div>
     <br>
-    <div class="row col-4">
         {% if user_projects %}
-            <h5>Прошлые проекты:&nbsp;&nbsp;&nbsp;</h5>
-        <h5><small>Всего проектов: {{user_projects_count}}</small></h5>
+            <h5>Прошлые проекты&nbsp;&nbsp;&nbsp;</h5>
+            <h5><small>Всего проектов: {{user_projects_count}}</small></h5>
             <ul style="list-style-type: none;">
                 {% for project in user_projects %}
                     <li>
@@ -46,7 +37,6 @@
         {% else %}
             <h5>{{current_user.first_name}} не работал ни с одним проектом</h5>
         {% endif %}
-    </div>
     {% else %}
         <h5>Пользователь не найден!</h5>
     {% endif %}
