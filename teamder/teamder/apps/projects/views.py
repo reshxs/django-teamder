@@ -52,12 +52,16 @@ def detail(request, project_id):
         raise Http404("Проект не найден!")
 
     if request.method == 'POST':
-        notification = Notification()
-        notification.project = project
-        notification.sender = request.user
-        notification.recipient = project.creator
-        notification.pub_date = timezone.now()
-        notification.save()
+        if request.POST.get('done') == 'true':
+            project.is_done = True
+            project.save()
+        else:
+            notification = Notification()
+            notification.project = project
+            notification.sender = request.user
+            notification.recipient = project.creator
+            notification.pub_date = timezone.now()
+            notification.save()
 
     member_list = project.members.all()
     technology_list = project.technologies.all()

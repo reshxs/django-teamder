@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.views.generic.edit import FormView
 from django.urls import reverse
+from django.db.models import Q
 
 from .models import Notification
 from .forms import RegistrationForm, ConfigurationForm
@@ -11,8 +12,14 @@ from .forms import RegistrationForm, ConfigurationForm
 
 def index(request):
     name = request.GET.get('name')
-    name = name if name is not None else ''
-    user_list = request.user.useraccount.user_friends.filter(username__icontains=name)
+    name_words = name.split() if name is not None else ''
+    user_list = request.user.useraccount.user_friends.all()
+    for word in name_words:
+        user_list = user_list.filter(
+            Q(first_name__icontains=word)
+            | Q(last_name__icontains=word)
+            | Q(username__icontains=word)
+        )
     return render(request, 'user_accounts/list.html', {'user_list': user_list, 'sorted_name': name})
 
 
@@ -101,9 +108,9 @@ def notifications(request):
         notification_id = request.POST.get('notification_id')
         notification = Notification.objects.get(id=int(notification_id))
         project = notification.project
-        accept = request.POST.get('accept')
+        is_accepted = request.POST.get('accept')
 
-        if accept:
+        if is_accepted:
             project.members.add(notification.sender)
             project.creator.useraccount.user_friends.add(notification.sender)
             user_account = notification.sender.useraccount

@@ -10,6 +10,14 @@
         {% if project %}
             <h2 class="col-5">{{project.project_name}}</h2>
         </div>
+        {% if user == project.creator and project.is_done == False %}
+            <a href="{% url 'projects:configurate' project.id%}">Редактировать</a>
+            <form method="post">
+                {% csrf_token %}
+                <input hidden type="text" name="done" value="true">
+                <input type="submit" value="Завершить проект">
+            </form>
+        {% endif %}
         <br><br>
         <div class="row">
             <h5 class="col-5">Автор: &nbsp;&nbsp;&nbsp;<a href="{% url 'user_accounts:detail' project.creator.id %}"><small>{{project.creator.first_name}} {{project.creator.last_name}}</small></a></h5>
@@ -49,6 +57,7 @@
         <br><br>
             <form method="post">
                 {% csrf_token %}
+                <input hidden type="text" value="false" name="done">
                 <input type="submit" class="btn btn-primary" style="border-radius: 50px;" value="Подать заявку на участие">
             </form>
         {% endif %}
