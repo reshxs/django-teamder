@@ -2,8 +2,8 @@
 {% block title %} Уведомления {% endblock %}
 
 {% block content %}
-
-<h1>Уведомления</h1>
+<div class="container">
+<h2>Уведомления</h2>
 
 {% if notifications_list %}
     <ul>
@@ -30,5 +30,5 @@
 {% else %}
 <p>Вам пока не пришло ни одного уведомления.</p>
 {% endif %}
-
+</div>
 {% endblock %}
