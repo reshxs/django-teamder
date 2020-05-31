@@ -19,7 +19,9 @@
     {% if user_list %}
         <ul style="list-style-type: none;">
         {% for current_user in user_list %}
-            <li> <a href = "{% url 'user_accounts:detail' current_user.id %}" style="text-decoration: none"> {{ current_user.username }} </a> </li>
+            <li> <a href = "{% url 'user_accounts:detail' current_user.id %}" style="text-decoration: none">
+                {{ current_user.first_name }}  {{ current_user.last_name }} ({{ current_user.username }})
+            </a> </li>
         {% endfor %}
         </ul>
     {% else %}

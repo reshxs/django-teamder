@@ -19,7 +19,7 @@ class Project(models.Model):
     project_description = models.TextField('описание проекта', blank=True)
     pub_date = models.DateTimeField('дата публикции', default=datetime.now())
     creator = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, null=True)
-    members = models.ManyToManyField(get_user_model(), 'Участники', null=True, blank=True)
+    members = models.ManyToManyField(get_user_model(), 'Участники', blank=True)
     members_count = models.IntegerField('Количество участников', default=1, blank=False)
     is_done = models.BooleanField('Проект завершен', default=False)
 

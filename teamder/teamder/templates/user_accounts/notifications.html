@@ -22,7 +22,9 @@
             <form method="post">
                 {% csrf_token %}
                 <input hidden type="text" value="{{notification.id}}" name="notification_id">
-                <input type="submit" value="Принять">
+                <input id="accept" type="checkbox" name="accept">
+                <label for="accept">Принять</label>
+                <input type="submit" value="ОК">
             </form>
         </li>
     {% endfor %}
