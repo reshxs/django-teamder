@@ -1,4 +1,4 @@
-from django.http import Http404
+from django.http import Http404, HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
@@ -44,6 +44,15 @@ def index(request):
     })
 
 
+def set_current_project(user):
+    user = user.useraccount
+    try:
+        user.user_current_project = user.user_projects.filter(is_done=False).latest('pub_date')
+    except:
+        user.user_current_project = None
+    user.save()
+
+
 @login_required
 def detail(request, project_id):
     try:
@@ -54,6 +63,9 @@ def detail(request, project_id):
     if request.method == 'POST':
         if request.POST.get('done') == 'true':
             project.is_done = True
+            set_current_project(project.creator)
+            for member in enumerate(project.members.all()):
+                set_current_project(member)
             project.save()
         else:
             notification = Notification()
@@ -70,6 +82,27 @@ def detail(request, project_id):
         'member_list': member_list,
         'technology_list': technology_list,
     })
+
+
+@login_required
+def manage_members(request, project_id):
+    try:
+        project = Project.objects.get(id=project_id)
+    except:
+        return Http404()
+
+    if request.method == 'POST':
+        member_id = int(request.POST.get('member_id'))
+        action = request.POST.get('action')
+        if action == 'delete':
+            project.members.get(id=member_id).delete()
+        project.save()
+
+    if project.creator == request.user:
+        members_list = project.members.all()
+        return render(request, 'projects/manage_members.html', {'members': members_list, 'project_id': project.id})
+    else:
+        return HttpResponse('У вас нет доступа к данному действю!')
 
 
 @login_required

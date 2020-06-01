@@ -63,7 +63,7 @@
     {% block content %}
 <div class="container">
     {% if user.is_authenticated %}
-        {% if user.is_authenticated %}
+        {% if user.useraccount.user_current_project != None %}
         <h2>Ваш текущий проект: <small><a href="{% url 'projects:detail' current_project.id %}" style="text-decoration: none">{{current_project.project_name}}</a></small></h2>
     <br>
             <h5>Ваши напарники: </h5>
@@ -84,19 +84,6 @@
         {% else %}
         <h2>У вас сейчас нет активных проектов, пора найти новый!</h2>
         {% endif %}
-        <!--{% if notifications_list%}
-        <h2>Последние уведомления :</h2>
-        <ul>
-            {% for note in notifications_list %}
-            <li><a href="{% url 'user_accounts:notifications' %}">
-                {{note.sender.first_name}} {{note.sender.last_name}}
-            </a></li>
-            {% endfor %}
-        </ul>
-        {% else %}
-        <h2>Нет новых уведомлений</h2>
-        {% endif %}-->
-
 
     {% else %}
 

@@ -56,13 +56,17 @@
         <br>
         {% if user == project.creator and project.is_done == False %}
         <div class="row">
-        <a class="col-3" href="{% url 'projects:configurate' project.id%}"><button class="btn btn-outline-primary" style="border-radius: 50px">Редактировать</button></a>
+            <a class="col-3" href="{% url 'projects:configurate' project.id%}"><button class="btn btn-outline-primary" style="border-radius: 50px">Редактировать</button></a>
+            <a class="col-3" href="{% url 'projects:manage_members' project.id%}"><button class="btn btn-outline-primary" style="border-radius: 50px">Управление участниками</button></a>
+
             <form method="post">
                 {% csrf_token %}
                 <input hidden type="text" name="done" value="true">
                 <input type="submit" value="Завершить проект" class="btn btn-outline-danger" style="border-radius: 50px">
             </form>
         </div>
+        {% else %}
+        <h3>Проект завершен!</h3>
         {% endif %}
     {% endblock %}
     </div>

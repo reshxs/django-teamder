@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %} Управлять участниками {% endblock %}
+
+{% block content %}
+
+
+<a href="{% url 'projects:detail' project_id %}">Назад к проекту</a>
+<h1>Управление участниками</h1>
+
+{% if members %}
+    <ul>
+        {% for member in members %}
+        <li>
+            <div class="row">
+                <a href="{% url 'user_accounts:detail' member.id %}">{{member.first_name}} {{member.last_name}}</a>
+                <form method="post">
+                    {% csrf_token %}
+                    <input hidden type="text" name="action" value="delete">
+                    <input hidden type="text" name="member_id" value="{{member.id}}">
+                    <input type="submit" value="Исключить">
+                </form>
+                {% endfor %}
+            </div>
+        </li>
+    </ul>
+{% else %}
+    <p>К вашему проекту еще ни кто не присоединился!</p>
+{% endif %}
+
+{% endblock %}
