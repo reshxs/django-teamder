@@ -31,18 +31,6 @@ class UserAccount(models.Model):
             instance.useraccount.user_current_project = None
         instance.useraccount.save()
 
-    @receiver(post_save, sender=Project)
-    def update_current_project(sender, instance, created, **kwargs):
-        ua = instance.creator.useraccount
-
-        if created:
-            ua.user_current_project = instance
-        if instance.is_done:
-            ua.user_current_project = None
-
-        ua.user_projects.add(instance)
-        ua.save()
-
     @property
     def is_busy(self):
         return self.user_current_project is not None

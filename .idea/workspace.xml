@@ -2,13 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d356b270-898e-4f82-8e39-fefe7287fdcc" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/teamder/teamder/templates/projects/manage_members.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dictionaries/79991.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dictionaries/79991.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/teamder/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/teamder/db.sqlite3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/teamder/teamder/apps/projects/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/teamder/teamder/apps/projects/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/teamder/teamder/apps/projects/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/teamder/teamder/apps/projects/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/teamder/teamder/templates/projects/add_new.html" beforeDir="false" afterPath="$PROJECT_DIR$/teamder/teamder/templates/projects/add_new.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/teamder/teamder/templates/projects/detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/teamder/teamder/templates/projects/detail.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/teamder/teamder/apps/user_accounts/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/teamder/teamder/apps/user_accounts/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/teamder/teamder/templates/user_accounts/detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/teamder/teamder/templates/user_accounts/detail.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,14 +29,15 @@
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
-    <option name="showExcludedFiles" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
@@ -51,8 +51,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1587293420137</updated>
+      <workItem from="1591014832389" duration="4800000" />
     </task>
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="2" />
   </component>
   <component name="WindowStateProjectService">
     <state x="275" y="22" key="#Notifications" timestamp="1587996649621">

@@ -44,15 +44,6 @@ def index(request):
     })
 
 
-def set_current_project(user):
-    user = user.useraccount
-    try:
-        user.user_current_project = user.user_projects.filter(is_done=False).latest('pub_date')
-    except:
-        user.user_current_project = None
-    user.save()
-
-
 @login_required
 def detail(request, project_id):
     try:
@@ -63,9 +54,13 @@ def detail(request, project_id):
     if request.method == 'POST':
         if request.POST.get('done') == 'true':
             project.is_done = True
-            set_current_project(project.creator)
-            for member in enumerate(project.members.all()):
-                set_current_project(member)
+            project.creator.useraccount.user_current_project = None
+            project.creator.save()
+
+            for member in project.members.all():
+                member.useraccount.user_current_project = None
+                member.save()
+
             project.save()
         else:
             notification = Notification()
