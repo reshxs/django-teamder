@@ -12,11 +12,27 @@ class RegistrationForm(UserCreationForm):
 
 
 class ConfigurationForm(forms.Form):
-    username = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'placeholder': 'Никнейм'}))
-    first_name = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'placeholder': 'Имя'}))
-    last_name = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'placeholder': 'Фамилия'}))
-    email = forms.EmailField(max_length=200, widget=forms.TextInput(attrs={'placeholder': 'email'}))
-    bio = forms.CharField(widget=forms.Textarea(attrs={'placeholder': 'О себе'}))
+    username = forms.CharField(max_length=50, widget=forms.TextInput(attrs={
+        "placeholder": "Никнейм",
+        "class": "form-control"
+    }))
+    first_name = forms.CharField(max_length=50, widget=forms.TextInput(attrs={
+        'placeholder': 'Имя',
+        "class": "form-control"
+    }))
+    last_name = forms.CharField(max_length=50, widget=forms.TextInput(attrs={
+        'placeholder': 'Фамилия',
+        "class": "form-control"
+    }))
+    email = forms.EmailField(max_length=200, widget=forms.TextInput(attrs={
+        'placeholder': 'Email',
+        "class": "form-control"
+    }))
+    bio = forms.CharField(max_length=300, widget=forms.Textarea(attrs={
+        'placeholder': 'О себе',
+        "class": "form-control",
+        "rows": "3"
+    }))
 
     class Meta:
         fields = ('username', 'first_name', 'last_name', 'email', 'bio')
