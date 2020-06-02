@@ -5,9 +5,7 @@
 {% block content %}
 <div class="container">
     <h2>Пользователи</h2>
-
     <br>
-
     <form method="get" class="form-inline">
         <div class="form-group mx-sm-3 mb-2">
             <label for="search_name" class="sr-only">Имя пользователя</label>
@@ -25,7 +23,7 @@
         {% endfor %}
         </ul>
     {% else %}
-        Пользователи не найдены
+    <h7>Пользователи не найдены</h7>
     {% endif %}
 </div>
 {% endblock %}

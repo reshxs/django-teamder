@@ -5,21 +5,35 @@
 {% block content %}
 <div class="container">
   {% if form.errors %}
-    <p>Your username and password didn't match. Please try again.</p>
+    <h5>Логин или пароль введены неверно</h5>
   {% endif %}
 
   {% if next %}
     {% if user.is_authenticated %}
-      <p>Your account doesn't have access to this page. To proceed,
-      please login with an account that has access.</p>
+      <h5>Your account doesn't have access to this page. To proceed,
+      please login with an account that has access.</h5>
     {% else %}
-      <p>Please login to see this page.</p>
+      <h5>Авторизуйтесь, чтобы увидеть эту страницу</h5>
     {% endif %}
   {% endif %}
-
+<br>
   <form method="post" action="{% url 'login' %}">
   {% csrf_token %}
-  <table>
+      <div class="form-group">
+        <label for="{{ id_username }}"></label>
+        {{ form.username }}
+      </div>
+    <br>
+      <div class="form-group">
+        <label for="{{ id_password }}"></label>
+        {{ form.password }}
+      </div>
+    <br><br>
+      <input type="submit" value="Войти" class="btn btn-primary" style="border-radius: 50px"/>
+      <input type="hidden" name="next" value="{{ next }}" />
+  </form>
+
+  <!--<table>
 
   <tr>
     <td>{{ form.username.label_tag }}</td>
@@ -34,9 +48,9 @@
 
   <input type="submit" value="login" />
   <input type="hidden" name="next" value="{{ next }}" />
-  </form>
+  </form>-->
 
   {# Assumes you setup the password_reset view in your URLconf #}
-  <p><a href="{% url 'password_reset' %}">Lost password?</a></p>
+  <h5><a href="{% url 'password_reset' %}" style="text-decoration: none"><small>Забыли логин или пароль?</small></a></h5>
 </div>
 {% endblock %}
