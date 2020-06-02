@@ -1,17 +1,16 @@
 {% extends 'base.html' %}
 
-{% block title %} Пользователи {% endblock %}
+{% block title %} Коллеги {% endblock %}
 
 {% block content %}
 <div class="container">
-    <h2>Пользователи</h2>
+    <h2>Коллеги</h2>
     <br>
     <form method="get" class="form-inline">
         <div class="form-group mx-sm-3 mb-2">
-            <label for="search_name" class="sr-only">Имя пользователя</label>
-            <input id="search_name" type="text" name="name" value="{{sorted_name}}" class="form-control" placeholder="Имя пользователя">
+            <input id="search_name" type="text" name="name" value="{{sorted_name}}" class="form-control" placeholder="Поиск">
         </div>
-        <button type="submit" class="btn btn-outline-secondary mb-2">Поиск</button>
+        <button type="submit" class="btn btn-outline-secondary mb-2">Найти</button>
     </form>
 
     {% if user_list %}
