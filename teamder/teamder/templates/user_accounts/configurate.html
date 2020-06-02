@@ -17,6 +17,7 @@
         <br><br><br><br><br><br>
     </form>-->
     <form method="post">
+        {% csrf_token %}
             <div class="row">
                 <div class="form-group col">
                     <label for="{{ id_username }}"></label>
