@@ -12,7 +12,8 @@ from .forms import RegistrationForm, ConfigurationForm
 
 def index(request):
     name = request.GET.get('name')
-    name_words = name.split() if name is not None else ''
+    sorted_name = name if name is not None else ''
+    name_words = name.split() if name is not None else ['',]
     user_list = request.user.useraccount.user_friends.all()
     for word in name_words:
         user_list = user_list.filter(
@@ -20,7 +21,7 @@ def index(request):
             | Q(last_name__icontains=word)
             | Q(username__icontains=word)
         )
-    return render(request, 'user_accounts/list.html', {'user_list': user_list, 'sorted_name': name})
+    return render(request, 'user_accounts/list.html', {'user_list': user_list, 'sorted_name': sorted_name})
 
 
 @login_required

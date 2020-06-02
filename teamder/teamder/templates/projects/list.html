@@ -37,6 +37,15 @@
             </div>
         </form>
 
+        <form method="get">
+            <input hidden type="text" name="name" value="">
+            <input hidden type="text" name="tech" value="">
+            <input hidden type="text" name="done" value="">
+            <div class="form-group mx-sm-3 mb-2">
+                <input type="submit" value="Сбросить" class="btn btn-outline-secondary">
+            </div>
+        </form>
+
         <div class="col-3 justify-content-end">
             <a href="{% url 'projects:add_new' %}"><button class="btn btn-primary" style="border-radius: 50px; float: right;">Создать проект</button></a>
         </div>
@@ -59,7 +68,5 @@
     {% else %}
         <p>Проекты не найдены</p>
     {% endif %}
-
-
 </div>
 {% endblock %}

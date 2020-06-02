@@ -38,6 +38,7 @@ def index(request):
     projects_list = projects_list.order_by('-pub_date')
 
     technology_list = Technology.objects.order_by('technology_name')
+    
     return render(request, 'projects/list.html', {
         'projects_list': projects_list,
         'technology_list': technology_list,
@@ -62,6 +63,7 @@ def detail(request, project_id):
                 member.useraccount.save()
 
             project.save()
+
         else:
             notification = Notification()
             notification.project = project
@@ -72,6 +74,7 @@ def detail(request, project_id):
 
     member_list = project.members.all()
     technology_list = project.technologies.all()
+
     return render(request, 'projects/detail.html', {
         'project': project,
         'member_list': member_list,
@@ -89,13 +92,17 @@ def manage_members(request, project_id):
     if request.method == 'POST':
         member_id = int(request.POST.get('member_id'))
         action = request.POST.get('action')
+
         if action == 'delete':
             project.members.get(id=member_id).delete()
+
         project.save()
 
     if project.creator == request.user:
         members_list = project.members.all()
+
         return render(request, 'projects/manage_members.html', {'members': members_list, 'project_id': project.id})
+
     else:
         return HttpResponse('У вас нет доступа к данному действю!')
 
@@ -121,12 +128,15 @@ def add_new(request):
             technology = Technology.objects.get(id=int(tech) + 1)
             if technology is not None:
                 a.technologies.add(technology)
+
         a.save()
 
         return redirect('/projects')
+
     else:
         technology_list = Technology.objects.order_by('technology_name')
         form = ProjectForm
+
         return render(request, 'projects/add_new.html', {
             'technology_list': technology_list,
             'form': form,
@@ -137,6 +147,7 @@ def add_new(request):
 @login_required
 def configurate(request, project_id):
     project = Project.objects.get(id=project_id)
+
     if request.method == "POST":
         project_name = request.POST.get('project_name')
         project_description = request.POST.get('project_description')
@@ -154,6 +165,7 @@ def configurate(request, project_id):
         project.save()
 
         return redirect(reverse('projects:detail', args=[project.id]))
+
     else:
         technology_list = Technology.objects.order_by('technology_name')
         data = {
@@ -161,7 +173,9 @@ def configurate(request, project_id):
             'project_description': project.project_description,
             'members_count': project.members_count
         }
+
         form = ProjectForm(data)
+
         return render(request, 'projects/add_new.html', {
             'technology_list': technology_list,
             'form': form,
