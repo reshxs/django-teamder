@@ -5,6 +5,7 @@
 {% block content %}
 {% load widget_tweaks %}
 <div class="container">
+  <div>
   {% if form.errors %}
     <h5>Логин или пароль введены неверно</h5>
   {% endif %}
@@ -27,29 +28,13 @@
       <div class="form-group">
         {% render_field form.password class+="form-control" placeholder="Пароль" %}
       </div>
-    <br><br>
+    <br>
       <input type="submit" value="Войти" class="btn btn-primary" style="border-radius: 50px"/>
       <input type="hidden" name="next" value="{{ next }}" />
   </form>
 
-  <!--<table>
-
-  <tr>
-    <td>{{ form.username.label_tag }}</td>
-    <td>{{ form.username }}</td>
-  </tr>
-
-  <tr>
-    <td>{{ form.password.label_tag }}</td>
-    <td>{{ form.password }}</td>
-  </tr>
-  </table>
-
-  <input type="submit" value="login" />
-  <input type="hidden" name="next" value="{{ next }}" />
-  </form>-->
-
   {# Assumes you setup the password_reset view in your URLconf #}
   <h5><a href="{% url 'password_reset' %}" style="text-decoration: none"><small>Забыли логин или пароль?</small></a></h5>
+  </div>
 </div>
 {% endblock %}
