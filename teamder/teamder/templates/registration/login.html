@@ -20,12 +20,12 @@
   <form method="post" action="{% url 'login' %}">
   {% csrf_token %}
       <div class="form-group">
-        <label for="{{ id_username }}"></label>
+        <label for="{{ form.username.id_for_label }}">Логин: </label>
         {{ form.username }}
       </div>
     <br>
       <div class="form-group">
-        <label for="{{ id_password }}"></label>
+        <label for="{{ form.password.id_for_label }}">Пароль: </label>
         {{ form.password }}
       </div>
     <br><br>
