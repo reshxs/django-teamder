@@ -45,7 +45,7 @@
             <p>Дата публикации - {{project.pub_date}}</p>
         </div>
         {% endif %}
-        {% if not project.is_done and user.useraccount.user_current_project == None %}
+        {% if not project.is_done and user.useraccount.user_current_project == None and project.creator != user %}
         <br><br>
             <form method="post">
                 {% csrf_token %}

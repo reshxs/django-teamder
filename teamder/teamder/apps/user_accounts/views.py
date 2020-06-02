@@ -88,6 +88,7 @@ def configure(request):
         configure_user_param(user, 'email', email)
         configure_user_param(user, 'bio', bio)
         user.save()
+        
         return redirect(reverse('user_accounts:detail', args=[user.id]))
 
     else:
@@ -98,7 +99,9 @@ def configure(request):
             'email': request.user.email,
             'bio': request.user.useraccount.user_bio,
         }
+
         form = ConfigurationForm(data)
+
         return render(request, 'user_accounts/configurate.html', {'form': form})
 
 
@@ -123,8 +126,10 @@ def notifications(request):
         notification.delete()
 
     notifications_list = request.user.notifications.order_by('-pub_date')
+
     for notification in notifications_list:
         if not notification.is_read:
             notification.is_read = True
             notification.save()
+
     return render(request, 'user_accounts/notifications.html', {'notifications_list': notifications_list})

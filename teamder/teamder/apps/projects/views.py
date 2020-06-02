@@ -55,11 +55,11 @@ def detail(request, project_id):
         if request.POST.get('done') == 'true':
             project.is_done = True
             project.creator.useraccount.user_current_project = None
-            project.creator.save()
+            project.creator.useraccount.save()
 
             for member in project.members.all():
                 member.useraccount.user_current_project = None
-                member.save()
+                member.useraccount.save()
 
             project.save()
         else:

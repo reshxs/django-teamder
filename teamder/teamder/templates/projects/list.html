@@ -50,7 +50,7 @@
                 <a href="{% url 'projects:detail' project.id %}" style="text-decoration: none"><button class="btn btn-outline-primary btn-block" style=" font-size: 200%; border-radius: 25px; ">
                     <h3>{{ project.project_name }}</h3>
                     <br>
-                        <h5> {{project.project_description}}</h5>
+                        <h5> {{ project.project_description | truncatechars:200 }}</h5>
                         <h5> <small>Дата публикации: {{project.pub_date}}</small></h5>
                 </button></a>
             </div>
