@@ -116,6 +116,7 @@ def add_new(request):
         creator = request.user
         members_count = request.POST.get('members_count')
         technologies = request.POST.getlist('technologies')
+        user_account = request.user.useraccount
 
         a = Project(project_name=project_name,
                     project_description=project_description,
@@ -130,6 +131,9 @@ def add_new(request):
                 a.technologies.add(technology)
 
         a.save()
+
+        user_account.user_projects.add(a)
+        user_account.user_current_project = a
 
         return redirect('/projects')
 
