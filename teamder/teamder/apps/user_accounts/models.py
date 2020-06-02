@@ -50,6 +50,10 @@ class Notification(models.Model):
     pub_date = models.DateTimeField('Время отправки')
     is_read = models.BooleanField('Прочитано', default=False)
 
+    def __str__(self):
+        return f'Пользователь {self.sender.first_name} {self.sender.last_name} ' \
+               f'хочет присоедениться к вашему проекту {self.project.project_name} '
+
     class Meta:
         verbose_name = 'Уведомление'
         verbose_name_plural = 'Уведомления'

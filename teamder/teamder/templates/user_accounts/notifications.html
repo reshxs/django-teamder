@@ -9,10 +9,12 @@
     <ul style="list-style-type: none;">
     {% for notification in notifications_list %}
         <li>
-                <h5>Пользователь
-                <a href="{% url 'user_accounts:detail' notification.sender.id %}" style="text-decoration: none">{{notification.sender.first_name}} {{notification.sender.last_name}}</a>
-                хочет присоедениться к вашему проекту
-                <a href="{% url 'projects:detail' notification.project.id %}" style="text-decoration: none">{{notification.project}}</a></h5>
+            <h5>Пользователь
+            <a href="{% url 'user_accounts:detail' notification.sender.id %}" style="text-decoration: none">{{notification.sender.first_name}}
+                {{notification.sender.last_name}}</a>
+            хочет присоедениться к вашему проекту
+            <a href="{% url 'projects:detail' notification.project.id %}" style="text-decoration: none">{{notification.project}}</a>
+        </h5>
             <form method="post">
                 {% csrf_token %}
                 <input hidden type="text" value="{{notification.id}}" name="notification_id">

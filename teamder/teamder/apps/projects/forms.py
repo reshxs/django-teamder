@@ -16,8 +16,8 @@ class ProjectForm(forms.ModelForm):
 		"placeholder": "Количество участников",
 		"class": "form-control"
 	}))
-	tech_choiсes = enumerate(Technology.objects.all())
-	technologies = forms.MultipleChoiceField(label='Выберите используемые технологии', choices=tech_choiсes)
+	tech_choices = enumerate(Technology.objects.all())
+	technologies = forms.MultipleChoiceField(label='Выберите используемые технологии', choices=tech_choices)
 
 	class Meta:
 		model = Project
