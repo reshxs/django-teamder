@@ -3,6 +3,7 @@
 {% block title %} login {% endblock %}
 
 {% block content %}
+{% load widget_tweaks %}
 <div class="container">
   {% if form.errors %}
     <h5>Логин или пароль введены неверно</h5>
@@ -20,13 +21,11 @@
   <form method="post" action="{% url 'login' %}">
   {% csrf_token %}
       <div class="form-group">
-        <label for="{{ form.username.id_for_label }}">Логин: </label>
-        {{ form.username }}
+        {% render_field form.username class+="form-control" placeholder="Логин" %}
       </div>
     <br>
       <div class="form-group">
-        <label for="{{ form.password.id_for_label }}">Пароль: </label>
-        {{ form.password }}
+        {% render_field form.password class+="form-control" placeholder="Пароль" %}
       </div>
     <br><br>
       <input type="submit" value="Войти" class="btn btn-primary" style="border-radius: 50px"/>
