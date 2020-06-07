@@ -39,7 +39,7 @@ def index(request):
 
     technology_list = Technology.objects.order_by('technology_name')
 
-    context {
+    context = {
         'projects_list': projects_list,
         'technology_list': technology_list,
     }

@@ -57,3 +57,17 @@ class Notification(models.Model):
     class Meta:
         verbose_name = 'Уведомление'
         verbose_name_plural = 'Уведомления'
+
+
+class Comment(models.Model):
+    sender = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
+    recipient = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, related_name='comments')
+    text = models.CharField('Текст отзыва', max_length = 1000)
+    mark = models.IntegerField('Оценка')
+
+    def __str__(self):
+        return f'{sender.first_name} {sender.last_name}'
+
+    class Meta:
+        verbose_name = 'Отзыв'
+        verbose_name_plural = 'Отзывы'
