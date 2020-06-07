@@ -47,6 +47,7 @@
         {% endif %}
     </div>
 
+    {% if current_user != user%}
     <h1>Оставить отзыв</h1>
     <div class="row">
         <form>
@@ -62,5 +63,6 @@
             <input type="submit" value="ОК">
         </form>
     </div>
+    {% endif %}
 </div>
 {% endblock %}
