@@ -43,12 +43,14 @@ def detail(request, user_id):
     user_projects = user.useraccount.user_projects.all()
     user_current_project = user.useraccount.user_current_project
 
-    return render(request, 'user_accounts/detail.html', {
+    cotext = {
         'current_user': user,
         'user_projects': user_projects,
         'user_projects_count': user_projects.count(),
         'user_current_project': user_current_project,
-    })
+    }
+
+    return render(request, 'user_accounts/detail.html', context)
 
 
 class RegistrationFormView(FormView):

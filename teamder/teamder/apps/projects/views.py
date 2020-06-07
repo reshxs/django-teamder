@@ -38,11 +38,13 @@ def index(request):
     projects_list = projects_list.order_by('-pub_date')
 
     technology_list = Technology.objects.order_by('technology_name')
-    
-    return render(request, 'projects/list.html', {
+
+    context {
         'projects_list': projects_list,
         'technology_list': technology_list,
-    })
+    }
+    
+    return render(request, 'projects/list.html', context)
 
 
 @login_required
@@ -77,12 +79,14 @@ def detail(request, project_id):
     member_list = project.members.all()
     technology_list = project.technologies.all()
 
-    return render(request, 'projects/detail.html', {
+    context = {
         'project': project,
         'member_list': member_list,
         'technology_list': technology_list,
-        'empty_places_count': project.members_count - project.members.count()
-    })
+        'empty_places_count': project.members_count - project.members.count(),
+    }
+
+    return render(request, 'projects/detail.html', context)
 
 
 @login_required
@@ -104,7 +108,12 @@ def manage_members(request, project_id):
     if project.creator == request.user:
         members_list = project.members.all()
 
-        return render(request, 'projects/manage_members.html', {'members': members_list, 'project_id': project.id})
+        context = {
+            'members': members_list,
+            'project_id': project.id,
+        }
+
+        return render(request, 'projects/manage_members.html', context)
 
     else:
         return HttpResponse('У вас нет доступа к данному действю!')
@@ -144,11 +153,13 @@ def add_new(request):
         technology_list = Technology.objects.order_by('technology_name')
         form = ProjectForm
 
-        return render(request, 'projects/add_new.html', {
+        context = {
             'technology_list': technology_list,
             'form': form,
-            'title': 'Создать',
-        })
+            'title': 'Создать'
+        }
+
+        return render(request, 'projects/add_new.html', context)
 
 
 @login_required
@@ -183,8 +194,10 @@ def configurate(request, project_id):
 
         form = ProjectForm(data)
 
-        return render(request, 'projects/add_new.html', {
+        context = {
             'technology_list': technology_list,
             'form': form,
             'title': 'Редактировать'
-        })
+        }
+
+        return render(request, 'projects/add_new.html', context)
