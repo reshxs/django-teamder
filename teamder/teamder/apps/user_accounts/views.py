@@ -6,7 +6,7 @@ from django.views.generic.edit import FormView
 from django.urls import reverse
 from django.db.models import Q
 
-from .models import Notification
+from .models import Notification, Comment
 from .forms import RegistrationForm, ConfigurationForm
 
 
@@ -40,14 +40,24 @@ def detail(request, user_id):
     except:
         raise Http404("Пользователь не найден!")
 
+    if request.method == 'POST':
+        sender = request.user
+        text = request.POST.get('text')
+        mark = request.POST.get('mark')
+
+        comment = Comment(sender=sender, recipient= user, text=text, mark=int(mark))
+        comment.save()
+
     user_projects = user.useraccount.user_projects.all()
     user_current_project = user.useraccount.user_current_project
+    user_comments = user.comments.all()
 
-    cotext = {
+    context = {
         'current_user': user,
         'user_projects': user_projects,
         'user_projects_count': user_projects.count(),
         'user_current_project': user_current_project,
+        'user_comments': user_comments,
     }
 
     return render(request, 'user_accounts/detail.html', context)

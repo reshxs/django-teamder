@@ -46,5 +46,21 @@
             <h2 class="col-3" align="left"><a href ="{% url 'user_accounts:configure' %}"><button class="btn btn-primary" style="border-radius: 50px; float: right;">Редактировать</button></a></h2>
         {% endif %}
     </div>
+
+    <h1>Оставить отзыв</h1>
+    <div class="row">
+        <form>
+            {% csrf_token %}
+            <textarea type="text" placeholder="Напишите что-то об этом пользователе" name="text"></textarea>
+            <select name="mark">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>
+            <input type="submit" value="ОК">
+        </form>
+    </div>
 </div>
 {% endblock %}
