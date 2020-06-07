@@ -56,10 +56,12 @@ def detail(request, project_id):
         if request.POST.get('done') == 'true':
             project.is_done = True
             project.creator.useraccount.user_current_project = None
+            project.creator.useraccount.user_projects.add(project)
             project.creator.useraccount.save()
 
             for member in project.members.all():
                 member.useraccount.user_current_project = None
+                member.useraccount.user_projects.add(project)
                 member.useraccount.save()
 
             project.save()
@@ -79,6 +81,7 @@ def detail(request, project_id):
         'project': project,
         'member_list': member_list,
         'technology_list': technology_list,
+        'empty_places_count': project.members_count - project.members.count()
     })
 
 

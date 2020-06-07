@@ -12,16 +12,25 @@ from .forms import RegistrationForm, ConfigurationForm
 
 def index(request):
     name = request.GET.get('name')
-    sorted_name = name if name is not None else ''
-    name_words = name.split() if name is not None else ['',]
-    user_list = request.user.useraccount.user_friends.all()
-    for word in name_words:
-        user_list = user_list.filter(
-            Q(first_name__icontains=word)
-            | Q(last_name__icontains=word)
-            | Q(username__icontains=word)
-        )
-    return render(request, 'user_accounts/list.html', {'user_list': user_list, 'sorted_name': sorted_name})
+    name = '' if name is None else name
+    words = name.split()
+
+    if name != '':
+        user_list = User.objects.all()
+        for word in words:
+            user_list = user_list.filter(
+                Q(first_name__icontains=word)
+                | Q(last_name__icontains=word)
+                | Q(username__icontains=word))
+    else:
+        user_list = request.user.useraccount.user_friends.all()
+
+    context = {
+        'user_list': user_list,
+        'sorted_name': name,
+    }
+
+    return render(request, 'user_accounts/list.html', context)
 
 
 @login_required
@@ -119,7 +128,6 @@ def notifications(request):
             project.creator.useraccount.user_friends.add(notification.sender)
             user_account = notification.sender.useraccount
             user_account.user_current_project = project
-            user_account.user_projects.add(project)
             user_account.user_friends.add(project.sender)
             user_account.save()
             project.save()

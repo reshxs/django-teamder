@@ -31,6 +31,7 @@
             </div>
             <div class="row col-5">
                 <h5>Участники:</h5>
+                <p>Свободно {{empty_places_count}} мест</p>
                 {% if member_list %}
                     <ul>
                         {% for member in member_list %}
@@ -48,7 +49,7 @@
         {% endif %}
 
         {% if not project.is_done %}
-            {% if user.useraccount.user_current_project == None and project.creator.id != user.id %}
+            {% if user.useraccount.user_current_project == None and project.creator.id != user.id  and empty_places_count != 0 %}
             <br><br>
                 <form method="post">
                     {% csrf_token %}
