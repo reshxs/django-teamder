@@ -8,7 +8,7 @@
         <form method="get" class="form-inline col-9">
             <div class="form-group mx-sm-3 mb-2">
                 <label for="search_name" class="sr-only">Название проекта </label>
-                <input id="search_name" type="search" name="name" value="" class="form-control" placeholder="Название проекта">
+                <input id="search_name" type="search" name="name" value="{{selected_name}}" class="form-control" placeholder="Название проекта">
             </div>
 
             <div class="form-group mx-sm-3 mb-2">
@@ -17,18 +17,18 @@
                     <option value="">Выберите технологию</option>
                         {% if technology_list %}
                             {% for tech in technology_list %}
-                                <option value="{{tech.technology_name}}">{{tech.technology_name}}</option>
+                                <option {% if selected_tech == tech.technology_name %}selected{% endif %} value="{{tech.technology_name}}">{{tech.technology_name}}</option>
                             {% endfor %}
                         {% endif %}
                 </select>
             </div>
 
             <div class="form-group mx-sm-3 mb-2">
-               <label for="search_done"></label>
+                <label for="search_done"></label>
                 <select id="search_done" name="done" class="form-control">
-                    <option value="">Выберите статус</option>
-                    <option value="true">Завершен</option>
-                    <option value="false">В работе</option>
+                    <option {% if selected_done == '' %}selected{% endif %} value="">Выберите статус</option>
+                    <option {% if selected_done == 'true' %}selected{% endif %} value="true">Завершен</option>
+                    <option {% if selected_done == 'false' %}selected{% endif %} value="false">В работе</option>
                 </select>
             </div>
 

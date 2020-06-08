@@ -30,6 +30,7 @@ def get_by_status(query, parameter):
 def index(request):
     tech = request.GET.get('tech')
     name = request.GET.get('name')
+    name = '' if name is None else name
     status = request.GET.get('done')
 
     projects_list = get_by_tech(tech)
@@ -42,6 +43,9 @@ def index(request):
     context = {
         'projects_list': projects_list,
         'technology_list': technology_list,
+        'selected_tech': tech,
+        'selected_done': status,
+        'selected_name': name
     }
     
     return render(request, 'projects/list.html', context)
