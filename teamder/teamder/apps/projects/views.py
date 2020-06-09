@@ -180,8 +180,9 @@ def configurate(request, project_id):
         project.project_description = project_description
         project.members_count = members_count
 
+        project.technologies.clear()
         for tech in technologies:
-            technology = Technology.objects.get(id=int(tech) + 1)
+            technology = Technology.objects.get(id=int(tech))
             if technology is not None:
                 project.technologies.add(technology)
         project.save()
@@ -201,7 +202,8 @@ def configurate(request, project_id):
         context = {
             'technology_list': technology_list,
             'form': form,
-            'title': 'Редактировать'
+            'title': 'Редактировать',
+            'project_tech_list': project.technologies.all()
         }
 
         return render(request, 'projects/add_new.html', context)

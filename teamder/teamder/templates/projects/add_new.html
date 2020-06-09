@@ -3,6 +3,7 @@
 {% block title %} {{ title }} {% endblock %}
 
 {% block content %}
+{% load widget_tweaks %}
 <div class="container">
     <h2>Создание проекта</h2>
     <br>
@@ -11,23 +12,39 @@
         <div class="form-row">
             <div class="col">
                 <label for="{{ id_project_name }}"></label>
-                {{ form.project_name }}
+                {% render_field form.project_name %}
             </div>
 
             <div class="col">
                 <label for="{{ id_members_count }}"></label>
-                 {{ form.members_count }}
+                 {% render_field form.members_count %}
             </div>
         </div>
 
         <div class="form-group">
             <label for="{{ id_project_description }}"></label>
-            {{ form.project_description }}
+            {% render_field form.project_description %}
         </div>
 
         <div class="form-group">
             <label for="{{ id_technologies }}"></label>
-            {{ form.technologies }}
+            <select id="{{ id_technologies }}" multiple name = "technologies">
+                {% for tech in technology_list %}
+                    <option
+                            {% if project_tech_list %}
+                                {% for project_tech in project_tech_list %}
+                                    {% if project_tech == tech %}
+                                        selected
+                                    {% endif %}
+                                {% endfor %}
+                            {% endif %}
+                            value="{{tech.id}}">
+                        {{tech.technology_name}}
+                    </option>
+                        
+                {% endfor %}
+            </select>
+            
         </div>
         
         <input type="submit" value="Сохранить" class="btn btn-primary" style="border-radius: 50px">
