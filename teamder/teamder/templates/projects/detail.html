@@ -10,6 +10,33 @@
             <div class="row">
                 <h2 class="col-5">{{project.project_name}}</h2>
             </div>
+
+            {% if not project.is_done %}
+            {% if user.useraccount.user_current_project == None and project.creator.id != user.id  and empty_places_count != 0 %}
+            <br><br>
+                <form method="post">
+                    {% csrf_token %}
+                    <input hidden type="text" value="false" name="done">
+                    <input type="submit" class="btn btn-primary" style="border-radius: 50px;" value="Подать заявку на участие">
+                </form> 
+            {% endif %}
+            <br>
+            {% if user == project.creator%}
+            <div class="row">
+                <a class="col-2" href="{% url 'projects:configurate' project.id%}"><button class="btn btn-outline-primary" style="border-radius: 50px">Редактировать</button></a>
+                <a class="col-3" href="{% url 'projects:manage_members' project.id%}"><button class="btn btn-outline-primary" style="   border-radius: 50px">Управление участниками</button></a>
+
+                <form method="post" class="col-3">
+                    {% csrf_token %}
+                    <input hidden type="text" name="done" value="true">
+                    <input type="submit" value="Завершить проект" class="btn btn-outline-danger" style="border-radius: 50px">
+                </form>
+            </div>
+            {% endif %}
+        {% else %}
+            <h3>Проект завершен!</h3>
+        {% endif %}
+
             <br><br>
             <div class="row">
                 <h5 class="col-5">Автор: &nbsp;&nbsp;&nbsp;<a href="{% url 'user_accounts:detail' project.creator.id %}"><small>    {{project.creator.first_name}} {{project.creator.last_name}}</small></a></h5>
@@ -48,31 +75,7 @@
             </div>
         {% endif %}
 
-        {% if not project.is_done %}
-            {% if user.useraccount.user_current_project == None and project.creator.id != user.id  and empty_places_count != 0 %}
-            <br><br>
-                <form method="post">
-                    {% csrf_token %}
-                    <input hidden type="text" value="false" name="done">
-                    <input type="submit" class="btn btn-primary" style="border-radius: 50px;" value="Подать заявку на участие">
-                </form> 
-            {% endif %}
-            <br>
-            {% if user == project.creator%}
-            <div class="row">
-                <a class="col-2" href="{% url 'projects:configurate' project.id%}"><button class="btn btn-outline-primary" style="border-radius: 50px">Редактировать</button></a>
-                <a class="col-3" href="{% url 'projects:manage_members' project.id%}"><button class="btn btn-outline-primary" style="   border-radius: 50px">Управление участниками</button></a>
-
-                <form method="post" class="col-3">
-                    {% csrf_token %}
-                    <input hidden type="text" name="done" value="true">
-                    <input type="submit" value="Завершить проект" class="btn btn-outline-danger" style="border-radius: 50px">
-                </form>
-            </div>
-            {% endif %}
-        {% else %}
-            <h3>Проект завершен!</h3>
-        {% endif %}
+ 
     {% endblock %}
     </div>
 </div>
