@@ -66,7 +66,7 @@ class Comment(models.Model):
     mark = models.IntegerField('Оценка')
 
     def __str__(self):
-        return f'{sender.first_name} {sender.last_name}'
+        return f'{self.sender.first_name} {self.sender.last_name}'
 
     class Meta:
         verbose_name = 'Отзыв'

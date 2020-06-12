@@ -50,7 +50,7 @@
     {% if current_user != user%}
     <h1>Оставить отзыв</h1>
     <div class="row">
-        <form>
+        <form method="post">
             {% csrf_token %}
             <textarea type="text" placeholder="Напишите что-то об этом пользователе" name="text"></textarea>
             <select name="mark">
