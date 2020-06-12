@@ -32,6 +32,13 @@
                 </select>
             </div>
 
+            <div>
+                <select id="order_by" name="order_by">
+                    <option {% if selected_order == 'pub_date' %}selected{% endif %} value="pub_date">По дате</option>
+                    <option {% if selected_order == 'name' %}selected{% endif %} value="name">По имени</option>
+                </select>
+            </div>
+
             <div class="form-group mx-sm-3 mb-2">
                 <input type="submit" value="OK" class="btn btn-outline-secondary">
             </div>
@@ -41,6 +48,7 @@
             <input hidden type="text" name="name" value="">
             <input hidden type="text" name="tech" value="">
             <input hidden type="text" name="done" value="">
+            <input hidden type="text" name="order_by" value="pub_date">
             <div class="form-group mx-sm-3 mb-2">
                 <input type="submit" value="Сбросить" class="btn btn-outline-secondary">
             </div>

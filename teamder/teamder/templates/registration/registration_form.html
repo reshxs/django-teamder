@@ -12,18 +12,30 @@
         <div class="row">
             <div class="form-group col-6">
                 {% render_field form.first_name placeholder="Имя" class="form-control" %}
+                {% if form.first_name.errors %}
+                    <p> Некоректное имя </p>
+                {% endif %}
             </div>
 
             <div class="form-group col-6">
                 {% render_field form.last_name placeholder="Фамилия" class="form-control" %}
+                {% if form.last_name.errors %}
+                    <p> Некоректная фамилия </p>
+                {% endif %}
             </div>
 
             <div class="form-group col-6">
                 {% render_field form.username placeholder="Логин" class="form-control" %}
+                {% if form.username.errors %}
+                <p> Некоректный логин </p>
+                {% endif %}
             </div>
 
             <div class="form-group col-6">
                 {% render_field form.email placeholder="Email" class="form-control" %}
+                {% if form.email.errors %}
+                    <p> Некоректный email </p>
+                {% endif %}
             </div>
         </div>
 
@@ -34,6 +46,10 @@
         <div class="form-group">
             {% render_field form.password2 placeholder="Повторите введенный пароль" class="form-control" %}
         </div>
+
+        {% if form.password1.errors or form.password2.errors %}
+            <p> Пароли должны совпадать и соответствовать требованиям! </p>
+        {% endif %}
 
         <div class="form-group">
             {% render_field form.bio placeholder="О себе" class="form-control" rows="3" %}

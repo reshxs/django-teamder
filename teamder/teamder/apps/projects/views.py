@@ -26,17 +26,25 @@ def get_by_status(query, parameter):
     else:
         return query
 
+def get_order_by(query, parameter):
+    if parameter == 'pub_date':
+        return query.order_by('-pub_date')
+    if parameter == 'name':
+        return query.order_by('project_name')
+    return query
+
 
 def index(request):
     tech = request.GET.get('tech')
     name = request.GET.get('name')
     name = '' if name is None else name
     status = request.GET.get('done')
+    order = request.GET.get('order_by')
 
     projects_list = get_by_tech(tech)
     projects_list = get_by_name(projects_list, name)
     projects_list = get_by_status(projects_list, status)
-    projects_list = projects_list.order_by('-pub_date')
+    projects_list = get_order_by(projects_list, order)
 
     technology_list = Technology.objects.order_by('technology_name')
 
@@ -45,7 +53,8 @@ def index(request):
         'technology_list': technology_list,
         'selected_tech': tech,
         'selected_done': status,
-        'selected_name': name
+        'selected_name': name,
+        'selected_order': order,
     }
     
     return render(request, 'projects/list.html', context)
