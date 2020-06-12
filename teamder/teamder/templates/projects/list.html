@@ -5,7 +5,7 @@
 {% block content %}
 <div class="container">
     <div class="row">
-        <form method="get" class="form-inline col-9">
+        <form method="get" class="form-inline">
             <div class="form-group mx-sm-3 mb-2">
                 <label for="search_name" class="sr-only">Название проекта </label>
                 <input id="search_name" type="search" name="name" value="{{selected_name}}" class="form-control" placeholder="Название проекта">
@@ -32,15 +32,16 @@
                 </select>
             </div>
 
-            <div>
-                <select id="order_by" name="order_by">
-                    <option {% if selected_order == 'pub_date' %}selected{% endif %} value="pub_date">По дате</option>
-                    <option {% if selected_order == 'name' %}selected{% endif %} value="name">По имени</option>
+            <div class="form-group mx-sm-3 mb-2">
+                <label for="order_by"></label>
+                <select id="order_by" name="order_by" class="form-control">
+                    <option {% if selected_order == 'pub_date' %}selected{% endif %} value="pub_date">По дате публикации</option>
+                    <option {% if selected_order == 'name' %}selected{% endif %} value="name">По имени (А-Я)</option>
                 </select>
             </div>
 
             <div class="form-group mx-sm-3 mb-2">
-                <input type="submit" value="OK" class="btn btn-outline-secondary">
+                <input type="submit" value="Поиск" class="btn btn-outline-secondary">
             </div>
         </form>
 
@@ -54,7 +55,7 @@
             </div>
         </form>
 
-        <div class="col-3 justify-content-end">
+        <div class="col-12 justify-content-end">
             <a href="{% url 'projects:add_new' %}"><button class="btn btn-primary" style="border-radius: 50px; float: right;">Создать проект</button></a>
         </div>
     </div>
