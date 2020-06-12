@@ -26,12 +26,10 @@ def get_by_status(query, parameter):
     else:
         return query
 
-def get_order_by(query, parameter):
-    if parameter == 'pub_date':
-        return query.order_by('-pub_date')
+def get_order_by(query, parameter):        
     if parameter == 'name':
         return query.order_by('project_name')
-    return query
+    return query.order_by('-pub_date')
 
 
 def index(request):

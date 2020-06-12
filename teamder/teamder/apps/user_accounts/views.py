@@ -154,3 +154,24 @@ def notifications(request):
             notification.save()
 
     return render(request, 'user_accounts/notifications.html', {'notifications_list': notifications_list})
+
+
+def comments(request, user_id):
+    try:
+        user = User.objects.get(id=user_id)
+    except:
+        return Http404('Пользователь не найден!')
+
+    comments_list = user.comments.all()
+    context = {
+        'comments_list': comments_list,
+        'current_user': user
+    }
+
+    return render(request, 'user_accounts/comments.html', context)
+
+
+
+
+
+

@@ -22,7 +22,7 @@
 <body>
 
     {% block header%}
-
+    {% load static %}
     <nav class="navbar navbar-expand-lg fixed-top">
         <div class="container" style="border: 2px solid #3A7FE7; background-color: white; border-radius: 15px">
             <div class="navbar-header">
@@ -98,7 +98,6 @@
             <h2 align="center"><a href="{% url 'projects:index' %}"><button class="btn btn-primary" style="border-radius: 50px;">Поиск проекта</button></a></h2>
           </div>
         <div class="col-lg-7">
-            {% load static %}
           <img src="{% static 'main.png' %}" class="img-fluid animated" alt="MAIN">
         </div>
       </div>

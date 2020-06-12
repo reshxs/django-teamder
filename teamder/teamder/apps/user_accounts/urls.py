@@ -8,5 +8,5 @@ urlpatterns = [
     path('register/', views.RegistrationFormView.as_view(), name='register'),
     path('configure/', views.configure, name='configure'),
     path('detail/<int:user_id>/', views.detail, name='detail'),
-    path('detail/me', views.detail, name='me')
+    path('detail/<int:user_id>/comments', views.comments, name='comments'),
 ]

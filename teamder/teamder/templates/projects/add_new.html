@@ -5,7 +5,7 @@
 {% block content %}
 {% load widget_tweaks %}
 <div class="container">
-    <h2>Создание проекта</h2>
+    <h2>Проект</h2>
     <br>
     <form method="post">
         {% csrf_token %}
@@ -28,7 +28,7 @@
 
         <div class="form-group">
             <label for="{{ id_technologies }}"></label>
-            <select id="{{ id_technologies }}" multiple name = "technologies">
+            <select id="{{ id_technologies }}" multiple name = "technologies" class="custom-select">
                 {% for tech in technology_list %}
                     <option
                             {% if project_tech_list %}
