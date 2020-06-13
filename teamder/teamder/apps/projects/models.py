@@ -1,4 +1,4 @@
-from datetime import datetime
+from django.utils import timezone
 from django.db import models
 from django.contrib.auth import get_user_model
 
@@ -17,7 +17,7 @@ class Technology(models.Model):
 class Project(models.Model):
     project_name = models.CharField('название проекта', max_length=100)
     project_description = models.TextField('описание проекта', blank=True)
-    pub_date = models.DateTimeField('дата публикции', default=datetime.now())
+    pub_date = models.DateTimeField('дата публикции', default=timezone.now())
     creator = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, null=True)
     members = models.ManyToManyField(get_user_model(), 'Участники', blank=True)
     members_count = models.IntegerField('Количество участников', default=1, blank=False)
