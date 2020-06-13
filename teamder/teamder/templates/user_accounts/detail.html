@@ -47,9 +47,9 @@
         {% endif %}
     </div>
 
-    {% if current_user != user%}
     <h1>Отзывы</h1>
-    <h3><a href="{% url 'user_accounts:comments' user.id %}">Отзывы</a></h3>
+    <h3><a href="{% url 'user_accounts:comments' current_user.id %}">Отзывы</a></h3>
+    {% if current_user != user%}
     <div class="row">
         <form method="post">
             {% csrf_token %}

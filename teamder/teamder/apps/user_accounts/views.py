@@ -45,8 +45,9 @@ def detail(request, user_id):
         text = request.POST.get('text')
         mark = request.POST.get('mark')
 
-        comment = Comment(sender=sender, recipient= user, text=text, mark=int(mark))
+        comment = Comment(sender=sender, recipient=user, text=text, mark=int(mark))
         comment.save()
+        user.comments.add(comment)
 
     user_projects = user.useraccount.user_projects.all()
     user_current_project = user.useraccount.user_current_project

@@ -9,7 +9,7 @@
 	<ul>
 		{% for comment in comments_list %}
 		<li>
-			<h3>{{comment.sender.first_name}} {{comment.sender.last_name}}</h3>
+			<h3><a href="{% url 'user_accounts:detail' comment.sender.id%}">{{comment.sender.first_name}} {{comment.sender.last_name}}</a></h3>
 			<p>{{comment.text}}</p>
 		</li>
 		{% endfor %}
