@@ -5,20 +5,22 @@
 {% block content %}
 
 <div class="container">
-    <div class="container">
+
         {% if project %}
-             <div class="row col-12 justify-content-center">
+             <div align="center">
                 <h2>{{project.project_name}}</h2>
             </div>
 
             {% if not project.is_done %}
             {% if user.useraccount.user_current_project == None and project.creator.id != user.id  and empty_places_count != 0 %}
             <br><br>
+        <div align="center">
                 <form method="post">
                     {% csrf_token %}
                     <input hidden type="text" value="false" name="done">
                     <input type="submit" class="btn btn-primary" style="border-radius: 50px;" value="Подать заявку на участие">
-                </form> 
+                </form>
+        </div>
             {% endif %}
             <br>
             {% if user == project.creator%}
@@ -34,17 +36,22 @@
             </div>
             {% endif %}
         {% else %}
-            <h3>Проект завершен!</h3>
+            <h3 align="center">Проект завершен!</h3>
         {% endif %}
-
-            <br><br>
-            <div class="row">
-                <h5 class="col-5">Автор: &nbsp;&nbsp;&nbsp;<a href="{% url 'user_accounts:detail' project.creator.id %}"><small>
-                    {{project.creator.first_name}} {{project.creator.last_name}}</small></a></h5>        </div>
-            <div class="row">
-                <h5 class="col-5">Описание проекта:&nbsp;&nbsp;&nbsp; <small>{{project.project_description}}</small></h5>
-            </div>
-            <div class="row col-5">
+    <div class="row">
+        <div class="col-6">
+                    <br><br>
+                    <div>
+                        <h5>Автор: &nbsp;&nbsp;&nbsp;<a href="{% url 'user_accounts:detail' project.creator.id %}" style="text-decoration: none"><small>
+                            {{project.creator.first_name}} {{project.creator.last_name}}</small></a></h5>
+                    </div>
+                    <div>
+                        <h5>Описание проекта:&nbsp;&nbsp;&nbsp; <small>{{project.project_description}}</small></h5>
+                    </div>
+        </div>
+    <div class="col-6">
+        <br><br>
+            <div>
                 <h5>Используемые технологии: </h5>
                 {% if technology_list %}
                     <ul>
@@ -56,26 +63,26 @@
                     <p>Не указана ни одна технология</p>
                 {% endif %}
             </div>
-            <div class="row col-5">
-                <h5>Участники:</h5>
-                <p>Свободных мест: {{empty_places_count}}</p>
+            <div>
+                <h5>Участники: &nbsp;&nbsp;&nbsp;</h5>
+                <h7>Свободных мест: {{empty_places_count}} из {{ project.members_count }}</h7>
                 {% if member_list %}
                     <ul>
                         {% for member in member_list %}
-                            <li><a href="{% url 'user_accounts:detail' member.id %}">{{member.first_name}} {{member.last_name}}</a>
+                            <li><a href="{% url 'user_accounts:detail' member.id %}" style="text-decoration: none">{{member.first_name}} {{member.last_name}}</a>
                             </li>
                         {% endfor %}
                     </ul>
                 {% else %}
-                    <p>К этому проекту еще ни кто не присоединился. Вы можете стать первым!</p>
+                    <h7>К этому проекту еще ни кто не присоединился. Вы можете стать первым!</h7>
                 {% endif %}
             </div>
-            <div class="row col-5">
-                <p>Дата публикации - {{project.pub_date}}</p>
+            <div>
+                <h7>Дата публикации - {{project.pub_date}}</h7>
             </div>
+        <br><br>
         {% endif %}
-
- 
     {% endblock %}
+    </div>
     </div>
 </div>
