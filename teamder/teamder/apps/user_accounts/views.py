@@ -141,7 +141,7 @@ def notifications(request):
             project.creator.useraccount.user_friends.add(notification.sender)
             user_account = notification.sender.useraccount
             user_account.user_current_project = project
-            user_account.user_friends.add(project.sender)
+            user_account.user_friends.add(notification.sender)
             user_account.save()
             project.save()
 
