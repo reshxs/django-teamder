@@ -1,11 +1,9 @@
 {% extends "base.html" %}
 {% block title%} Отзывы {% endblock %}
 {% block content %}
-
-<h1>Отзывы</h1>
-
+<div class="container">
+<h2>Отзывы</h2>
 {% if comments_list %}
-
 	<ul>
 		{% for comment in comments_list %}
 		<li>
@@ -15,7 +13,7 @@
 		{% endfor %}
 	</ul>
 {% else %}
-	<p>Об этом пользователе еще ни кто не оставил отзыв. Если вам есть что рассказать о нем, вы можете стать первым!</p>
+	<h5>Об этом пользователе еще ни кто не оставил отзыв. Если вам есть что рассказать о нем, вы можете стать первым!</h5>
 {% endif %}
-
+</div>
 {% endblock %}

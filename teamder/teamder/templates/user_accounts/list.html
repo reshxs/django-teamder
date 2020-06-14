@@ -4,7 +4,7 @@
 
 {% block content %}
 <div class="container">
-    <h2>Коллеги</h2>
+    <h2>Пользователи</h2>
     <br>
     <form method="get" class="form-inline">
         <div class="form-group mx-sm-3 mb-2">
@@ -14,13 +14,11 @@
     </form>
 
     {% if user_list %}
-        <ul style="list-style-type: none;">
         {% for current_user in user_list %}
-            <li> <a href = "{% url 'user_accounts:detail' current_user.id %}" style="text-decoration: none">
-                {{ current_user.first_name }}  {{ current_user.last_name }} ({{ current_user.username }})
-            </a> </li>
+             <a href = "{% url 'user_accounts:detail' current_user.id %}" style="text-decoration: none">
+                {{ current_user.first_name }}  {{ current_user.last_name }} ({{ current_user.username }})</a>
+            <br>
         {% endfor %}
-        </ul>
     {% else %}
     <h7>Пользователи не найдены</h7>
     {% endif %}
