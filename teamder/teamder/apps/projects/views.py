@@ -149,14 +149,14 @@ def add_new(request):
         a.save()
 
         for tech in technologies:
-            technology = Technology.objects.get(id=int(tech) + 1)
+            technology = Technology.objects.get(id=int(tech))
             if technology is not None:
                 a.technologies.add(technology)
 
         a.save()
 
-        user_account.user_projects.add(a)
         user_account.user_current_project = a
+        user_account.save()
 
         return redirect('/projects')
 
