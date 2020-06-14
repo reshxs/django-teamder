@@ -33,6 +33,18 @@ def index(request):
     return render(request, 'user_accounts/list.html', context)
 
 
+def get_average_mark(user_id):
+    user = User.objects.get(id=user_id)
+    comments = user.comments.all()
+    result = 0
+    count = 0
+    for comment in comments:
+        result += comment.mark
+        count += 1
+
+    return result / count
+
+
 @login_required
 def detail(request, user_id):
     try:
@@ -54,6 +66,7 @@ def detail(request, user_id):
     user_projects = user.useraccount.user_projects.all()
     user_current_project = user.useraccount.user_current_project
     user_comments = user.comments.all()
+    user_average_mark = get_average_mark(user_id)
 
     context = {
         'current_user': user,
@@ -61,6 +74,7 @@ def detail(request, user_id):
         'user_projects_count': user_projects.count(),
         'user_current_project': user_current_project,
         'user_comments': user_comments,
+        'user_average_mark': user_average_mark,
     }
 
     return render(request, 'user_accounts/detail.html', context)
