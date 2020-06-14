@@ -87,6 +87,8 @@ def detail(request, project_id):
             notification.pub_date = timezone.now()
             notification.save()
 
+        return redirect(reverse('projects:detail', args=[project_id]))
+
     member_list = project.members.all()
     technology_list = project.technologies.all()
 

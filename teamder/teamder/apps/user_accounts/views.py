@@ -49,6 +49,8 @@ def detail(request, user_id):
         comment.save()
         user.comments.add(comment)
 
+        return redirect(reverse('user_accounts:detail', args=[user.id]))
+
     user_projects = user.useraccount.user_projects.all()
     user_current_project = user.useraccount.user_current_project
     user_comments = user.comments.all()
