@@ -42,6 +42,9 @@ def get_average_mark(user_id):
         result += comment.mark
         count += 1
 
+    if count == 0:
+        return 0
+
     return result / count
 
 
