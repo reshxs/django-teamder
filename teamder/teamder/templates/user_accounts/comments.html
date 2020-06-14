@@ -4,14 +4,24 @@
 <div class="container">
 	<h2>Отзывы</h2>
 	{% if comments_list %}
-		<ul>
 			{% for comment in comments_list %}
-			<li>
-				<h5><a href="{% url 'user_accounts:detail' comment.sender.id%}">{{comment.sender.first_name}} {{comment.sender.last_name}}</a></h5>
-				<h5>{{comment.text}}</h5>
-			</li>
+		<div class="container" style="border: 2px solid rgba(57, 127, 231, 0.3); background-color: white; border-radius: 15px">
+			<div align="left">
+				<a href="{% url 'user_accounts:detail' comment.sender.id%}" style="text-decoration: none">
+					{{comment.sender.first_name}} {{comment.sender.last_name}}</a>
+				<br>
+				<h7>Оценка: {{ comment.mark }}</h7>
+			</div>
+			<div style="color: grey">
+			<h7>{{comment.text}}</h7>
+			</div>
+		</div>
+	<br>
 			{% endfor %}
-		</ul>
+
+
+
+
 	{% else %}
 		{% if current_user != user%}
 		<h5>Об этом пользователе еще никто не оставил отзыв. Если вам есть что рассказать о нем, вы можете стать первым!</h5>
