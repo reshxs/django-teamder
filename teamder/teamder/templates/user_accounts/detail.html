@@ -8,34 +8,34 @@
         <div class="col-6">
             {% if current_user %}
                 <h2>{{current_user.username}}</h2>
-            <br/><br>
+                <br/><br>
                 <h5>Информация:</h5>
                 <h5><small>{{current_user.first_name}} {{current_user.last_name}}
                     {% if current_user.is_superuser %}
                     (Администратор)</small></h5>
                     {% endif %}
                 <h5><small>{{current_user.email}}</small></h5>
-            <div class="row">
-                <h5 class="col-5"><small>{{current_user.useraccount.user_bio}}</small></h5>
+            <div>
+                <h5><small>{{current_user.useraccount.user_bio}}</small></h5>
             </div>
             <br>
+        </div>
+
+        <div class="col-6">
+            <br/><br><br/><br>
                 {% if user_current_project %}
                 <h5>Сейчас {{current_user.first_name}} работает над проектом:
                     <a href="{% url 'projects:detail' user_current_project.id%}" style="text-decoration: none"><small>{{user_current_project.project_name}}</small></a></h5>
                 {% else %}
-                    <h5>Сейчас {{current_user.first_name}} ни чем не занимается</h5>
+                    <h5>Сейчас {{current_user.first_name}} ничем не занимается</h5>
                 {% endif %}
             <br>
                 {% if user_projects %}
                     <h5>Прошлые проекты&nbsp;&nbsp;&nbsp;</h5>
                     <h5><small>Всего проектов: {{user_projects_count}}</small></h5>
-                    <ul style="list-style-type: none;">
                         {% for project in user_projects %}
-                            <li>
                                 <h6><a href="{% url 'projects:detail' project.id%}" style="text-decoration: none; font-weight: normal">{{project.project_name}}</a></h6>
-                            </li>
                         {% endfor %}
-                    </ul>
                 {% else %}
                     <h5>{{current_user.first_name}} не работал ни с одним проектом</h5>
                 {% endif %}
@@ -43,24 +43,18 @@
                 <h5>Пользователь не найден!</h5>
             {% endif %}
             <br><br>
-            <div align="left">
-                {% if user.id == current_user.id %}
-                    <a href ="{% url 'user_accounts:configure' %}"><button class="btn btn-primary" style="border-radius: 50px;">Редактировать</button></a>
-                {% endif %}
-            </div>
         </div>
 
-        <div class="col-6">
-            <br/><br><br/><br>
-            <h5><a href="{% url 'user_accounts:comments' current_user.id %}" style="text-decoration: none">Все отзывы</a></h5>
-            <h5>Добавить отзыв</h5>
+        <div class="col-12">
             {% if current_user != user%}
-            <div class="form-group mx-sm-3 mb-2">
+            <div>
+                <h5><a href="{% url 'user_accounts:comments' current_user.id %}" style="text-decoration: none">Все отзывы</a></h5>
+                <h5>Добавить отзыв</h5>
                 <form method="post">
                     {% csrf_token %}
                     <textarea type="text" placeholder="Напишите что-то об этом пользователе" name="text" class="form-control"></textarea>
                     <br>
-                    <div class="row col-4">
+                    <div class="row col-3">
                     <select name="mark" class="form-control">
                         <option value="">Оценка</option>
                         <option value="1">1</option>
@@ -75,6 +69,14 @@
                     <br><br><br>
                 </form>
             </div>
+            {% else %}
+                <h5><a href="{% url 'user_accounts:comments' current_user.id %}" style="text-decoration: none">Отзывы обо мне</a></h5>
+                <br>
+                <div align="left">
+                    {% if user.id == current_user.id %}
+                        <a href ="{% url 'user_accounts:configure' %}"><button class="btn btn-primary" style="border-radius: 50px;">Редактировать</button></a>
+                    {% endif %}
+                </div>
         </div>
     </div>
     {% endif %}

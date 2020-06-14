@@ -2,18 +2,22 @@
 {% block title%} Отзывы {% endblock %}
 {% block content %}
 <div class="container">
-<h2>Отзывы</h2>
-{% if comments_list %}
-	<ul>
-		{% for comment in comments_list %}
-		<li>
-			<h3><a href="{% url 'user_accounts:detail' comment.sender.id%}">{{comment.sender.first_name}} {{comment.sender.last_name}}</a></h3>
-			<p>{{comment.text}}</p>
-		</li>
-		{% endfor %}
-	</ul>
-{% else %}
-	<h5>Об этом пользователе еще ни кто не оставил отзыв. Если вам есть что рассказать о нем, вы можете стать первым!</h5>
-{% endif %}
+	<h2>Отзывы</h2>
+	{% if comments_list %}
+		<ul>
+			{% for comment in comments_list %}
+			<li>
+				<h5><a href="{% url 'user_accounts:detail' comment.sender.id%}">{{comment.sender.first_name}} {{comment.sender.last_name}}</a></h5>
+				<h5>{{comment.text}}</h5>
+			</li>
+			{% endfor %}
+		</ul>
+	{% else %}
+		{% if current_user != user%}
+		<h5>Об этом пользователе еще никто не оставил отзыв. Если вам есть что рассказать о нем, вы можете стать первым!</h5>
+		{% else %}
+		<h5>Никто еще не оставил отзыв о работе с вами</h5>
+		{% endif %}
+	{% endif %}
 </div>
 {% endblock %}
