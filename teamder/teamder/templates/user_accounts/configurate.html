@@ -7,15 +7,6 @@
 {% if user.is_authenticated %}
 <div class="container">
     <h2> Редактирование профиля </h2>
-    <!--<form method="post">
-        {% csrf_token %}
-        <table>
-            {{ form.as_table }}
-        </table>
-        <br><br>
-        <input type="submit" class="btn btn-primary" style="border-radius: 50px;" value="Сохранить">
-        <br><br><br><br><br><br>
-    </form>-->
     <form method="post">
         {% csrf_token %}
             <div class="row">
@@ -46,7 +37,7 @@
                 <label for="{{ id_bio }}"></label>
                 {{ form.bio }}
             </div>
-<br>
+            <br>
             <input type="submit" class="btn btn-primary" style="border-radius: 50px;" value="Сохранить">
     </form>
 </div>
