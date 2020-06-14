@@ -14,7 +14,7 @@
                 {{notification.sender.last_name}}</a>
             хочет присоедениться к вашему проекту
             <a href="{% url 'projects:detail' notification.project.id %}" style="text-decoration: none">{{notification.project}}</a>
-        </h5>
+            </h5>
             <form method="post">
                 {% csrf_token %}
                 <input hidden type="text" value="{{notification.id}}" name="notification_id">
