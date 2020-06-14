@@ -36,16 +36,14 @@ def index(request):
 def get_average_mark(user_id):
     user = User.objects.get(id=user_id)
     comments = user.comments.all()
-    result = 0
-    count = 0
-    for comment in comments:
-        result += comment.mark
-        count += 1
 
-    if count == 0:
-        return 0
+    if len(comments) > 0:
+        result = 0
+        for comment in comments:
+            result += comment.mark
+        return result / len(comments)
 
-    return result / count
+    return 0
 
 
 @login_required
