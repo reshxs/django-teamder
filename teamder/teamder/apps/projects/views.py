@@ -137,7 +137,6 @@ def add_new(request):
     if request.method == "POST":
         project_name = request.POST.get('project_name')
         project_description = request.POST.get('project_description')
-        pub_date = timezone.now()
         creator = request.user
         members_count = request.POST.get('members_count')
         technologies = request.POST.getlist('technologies')
@@ -145,7 +144,6 @@ def add_new(request):
 
         a = Project(project_name=project_name,
                     project_description=project_description,
-                    pub_date=pub_date,
                     creator=creator,
                     members_count=members_count)
         a.save()
